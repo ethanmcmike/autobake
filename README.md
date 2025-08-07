@@ -39,5 +39,17 @@ The user will be able to define ingredient quantities to adjust the recipe as de
  - 5 drops vanilla
  - 300 grams flour
 
+# Process
+1. Dispense butter, sugar
+2. Mix
+3. Dispense eggs, vanilla
+4. Mix
+5. Dispense flour, baking soda
+6. Mix
+7. Form balls from dough on tray
+8. Transfer tray to oven and bake
+9. Start bowl cleaning
+10. Present tray to user
+
 # Documentation
 View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
