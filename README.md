@@ -31,3 +31,6 @@ The user will be able to define ingredient quantities to adjust the recipe as de
  - 2 eggs
  - 5 drops vanilla
  - 300 grams flour
+
+# Documentation
+View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
