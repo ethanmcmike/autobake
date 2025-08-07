@@ -27,3 +27,4 @@ The user will be able to define ingredient quantities to adjust the recipe as de
 250 grams sugar
 2 eggs
 5 drops vanilla
+300 grams flour
