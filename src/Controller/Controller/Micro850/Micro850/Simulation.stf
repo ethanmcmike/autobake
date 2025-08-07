@@ -1,0 +1,28 @@
+PROGRAM Simulation
+#info= QLD
+BOF
+
+
+(*Begin dispensing butter when signal received*)
+
+SOR  [0,1] (**) (**)  
+ BST  XIP  [1,0] (*_IO_EM_DO_00*) (*DO_Butter_Dispenser*)
+   NXB  XIC  [1,1] (*Dispensing_Butter*) (**)
+ BND
+  OTE  [2,0] (*Dispensing_Butter*) (**)
+EOR [3,0]
+
+
+(*Simulate butter dispensing - increase bowl weight after 2 seconds*)
+
+SOR  [0,4] (**) (**)  XIC  [1,0] (*Dispensing_Butter*) (**)  FB  [2,0] (*TON*) (*TON_7*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#2s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*C_Butter_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [8,0] (*Dispensing_Butter*) (**)
+EOR [9,0]
+
+
+(*Simulate emptying bowl - set weight to bowl weight after 1s*)
+
+SOR  [0,8] (**) (**)  XIC  [1,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+EOR [8,0]
+EOF
+#end_info
+END_PROGRAM

@@ -1,0 +1,12 @@
+PROGRAM Constants
+// Simulation values
+C_Bowl_Weight := 750.0;		//g
+C_Butter_Weight := 115.0;	//g
+
+// Process indices
+IDX_Butter := 1;
+IDX_Sugar := 6;
+IDX_Vanilla := 6;
+IDX_Clean := 2;
+IDX_Reset := 3;
+END_PROGRAM

@@ -1,0 +1,18 @@
+[BEGIN FB INPUTS]
+I1=micro850.micro850.steps/ton_4.in,0x482,BOOL
+I2=micro850.micro850.steps/ton_4.pt,0x13EC,TIME
+I3=micro850.micro850.steps/ton_6.in,0x485,BOOL
+I4=micro850.micro850.steps/ton_6.pt,0x13EC,TIME
+I5=micro850.micro850.steps/ton_5.in,0x47E,BOOL
+I6=micro850.micro850.steps/ton_5.pt,0x13F0,TIME
+I7=micro850.micro850.steps/ton_3.in,0x415,BOOL
+I8=micro850.micro850.steps/ton_3.pt,0x13F4,TIME
+I9=micro850.micro850.steps/ton_2.in,0x41B,BOOL
+I10=micro850.micro850.steps/ton_2.pt,0x13F4,TIME
+I11=micro850.micro850.steps/ton_1.in,0x486,BOOL
+I12=micro850.micro850.steps/ton_1.pt,0x13FC,TIME
+I13=micro850.micro850.simulation/ton_7.in,0x48E,BOOL
+I14=micro850.micro850.simulation/ton_7.pt,0x1400,TIME
+I15=micro850.micro850.simulation/ton_1.in,0x41D,BOOL
+I16=micro850.micro850.simulation/ton_1.pt,0x1404,TIME
+[END]

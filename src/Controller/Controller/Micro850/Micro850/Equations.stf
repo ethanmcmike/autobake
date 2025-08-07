@@ -1,3 +1,3 @@
 PROGRAM Equations
-Relative_Weight := Bowl_Weight - Tare_Weight;
+Relative_Weight := DI_Bowl_Weight - Tare_Weight;
 END_PROGRAM
