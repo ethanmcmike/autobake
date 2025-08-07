@@ -1,0 +1,34 @@
+---------- Controller change started: Cookie Vending Machine_1 ----------
+
+---------- Importing Project : controller\Controller.acfproj ----------
+Changing controller type: 2080-L70E-24QBB (Version 23) to 2080-LC50-48QWB-SIM (Version 12)
+Warning: Target controller has smaller size. You might want to delete variables or programs in a target project.
+Warning: Serial port is not supported and its configuration is discarded.
+Warning: USB port is not supported and its configuration is discarded.
+Information: Motion PTO is not supported and its configuration is discarded.
+Information: Motion Feedback is not supported and its configuration is discarded.
+Information: Embedded Real Time Clock is not supported and its configuration is discarded.
+Information: Remote LCD is not supported and its configuration is discarded.
+Information: Memory Card is not supported and its configuration is discarded.
+Information: Data log is not supported and its configuration is discarded.
+Information: Recipe is not supported and its configuration is discarded.
+Warning: Target controller supports a smaller number of Expansion modules. Update programs as necessary.
+Warning: Target controller does not support Expansion I/O scan priority and its configuration was discarded.
+Warning: Target not support encryption backup.
+Warning: Ethernet Modules are not supported and its configuration is discarded.
+Warning: MicroLogix Mapping is not supported and its configuration is discarded.
+Warning: Target Controller doesn't support Configure IPv6 for Ethernet Protocol option. Default to Configure IPv4 Option.
+Information: UPMUI interrupt type is not supported and its configuration is discarded.
+Information: HSC interrupt type is not supported and its configuration is discarded.
+Warning: Ethernet Modules are not supported and its configuration is not kept.
+
+Import Controller Complete -- 0 Errors, 10 Warnings
+
+---------- End of project conversion ----------
+
+The source project has been saved in 
+"C:\Users\Ethan\Documents\CCW\Cookie Vending Machine\Cookie Vending Machine.ccwsln"
+
+Log file has been written in
+c:\users\ethan\documents\ccw\cookie vending machine_1\Conversion-2025-08-03.txt
+========== Controller Change: 1 succeeded, 0 failed ==========

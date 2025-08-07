@@ -1,0 +1,59 @@
+PROGRAM Process_Control
+#info= QLD
+BOF
+
+
+(*Detect new start*)
+
+SOR  [0,1] (**) (**)  XIO  [1,0] (*Process_Running*) (**)  XIP  [2,0] (*_IO_EM_DI_00*) (*Start_Process*)  OTE  [3,0] (*Initialize*) (**)
+EOR [4,0]
+
+
+(*Initialize, set step to 0, next step*)
+
+SOR  [0,3] (**) (**)  XIC  [1,0] (*Initialize*) (**)  FB  [2,0] (*1 gain*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  
+ BST  OTS  [5,0] (*Process_Running*) (**)
+   NXB  OTE  [5,1] (*Next_Step*) (**)
+ BND
+
+EOR [6,0]
+
+
+(*Increment step*)
+
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Next_Step*) (**)  FB  [2,0] (*+*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  OTR  [5,0] (*Next_Step*) (**)
+EOR [6,0]
+
+
+(*Dispense sugar, vanilla, egg*)
+
+SOR  [0,10] (**) (**)  XIC  [1,0] (*Process_Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*1*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTE  [5,0] (*_IO_EM_DO_01*) (*Dispense_Sugar*)
+   NXB  
+ BST  OTE  [5,1] (*_IO_EM_DO_02*) (*Dispense_Vanilla*)
+   NXB  
+ BST  OTE  [5,2] (*_IO_EM_DO_03*) (*Dispense_Eggs*)
+   NXB  XIO  [5,3] (*_IO_EM_DO_01*) (*Dispense_Sugar*)  XIO  [6,3] (*_IO_EM_DO_02*) (*Dispense_Vanilla*)  XIO  [7,3] (*_IO_EM_DO_03*) (*Dispense_Eggs*)  OTE  [8,3] (*Next_Step*) (**)
+ BND
+
+ BND
+
+ BND
+
+EOR [9,0]
+
+
+(*Mix*)
+
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Process_Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*2*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTE  [5,0] (*Mix*) (**)
+   NXB  XIO  [5,1] (*Mix*) (**)  OTE  [6,1] (*Next_Step*) (**)
+ BND
+
+EOR [7,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=10
+#end_info
+END_PROGRAM
