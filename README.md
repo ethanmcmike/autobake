@@ -1,10 +1,9 @@
-# cookie_vending_machine
-PLC/HMI learning project
-
+# About
 This is a test project to learn ladder logic, PLC, and HMI using Allen Bradley's Connected Components Workbench and a Micro850 simulator along with FactoryTalk.
 
 The system is an imaginary cookie vending machine that automatically produces cookies from scratch when the user presses a button. All the ingredients are assumed to be stored properly at an appropriate temperature and can be dispensed with machines into a large mixing bowl. I am not simulating or thinking through all the mechanical systems of how ingredients are dispensed or how the dough is transferred, only the control system assuming that those systems are in place.
 
+# IO
 Input:
  - Start process push button
  - Weight of bowl [grams]
@@ -25,9 +24,10 @@ Output:
  - Start oven
  - Present cookies to user
 
+# Recipe
 The user will be able to define ingredient quantities to adjust the recipe as desired. For example a recipe might look like:
  - 1 stick of butter
  - 250 grams sugar
-2 eggs
-5 drops vanilla
-300 grams flour
+ - 2 eggs
+ - 5 drops vanilla
+ - 300 grams flour
