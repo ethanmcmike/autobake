@@ -17,18 +17,33 @@
       <SubRoutings />
     </ProgramItem>
     <ProgramItem>
-      <ProgramName>Program1_New_1</ProgramName>
-      <RoutingName>Steps</RoutingName>
+      <ProgramName>Program1_New_2</ProgramName>
+      <RoutingName>Mixing_Bowl</RoutingName>
       <SubRoutings />
     </ProgramItem>
     <ProgramItem>
-      <ProgramName>Program1_New_2</ProgramName>
-      <RoutingName>Indicators</RoutingName>
+      <ProgramName>Program2</ProgramName>
+      <RoutingName>Butter_Dispenser</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
+      <ProgramName>Program2_New</ProgramName>
+      <RoutingName>Sugar_Dispenser</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
+      <ProgramName>Program1_New_3</ProgramName>
+      <RoutingName>Vanilla_Dispenser</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
+      <ProgramName>Program1_New_1</ProgramName>
+      <RoutingName>Flour_Dispenser</RoutingName>
       <SubRoutings />
     </ProgramItem>
     <ProgramItem>
       <ProgramName>Program1_New_4</ProgramName>
-      <RoutingName>Simulation</RoutingName>
+      <RoutingName>Indicators</RoutingName>
       <SubRoutings />
     </ProgramItem>
   </ProgramItems>

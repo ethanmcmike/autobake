@@ -9,7 +9,7 @@ __STEPPRAGMA
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 ; (*Pulse detection on : _IO_EM_DI_00 with __MEMO__1___IO_EM_DI_00 *)
-__EDTB1 := (_IO_EM_DI_00 AND NOT(__MEMO__1___IO_EM_DI_00)) AND NOT(RUNNING) ;
+__EDTB1 := (_IO_EM_DI_00 AND NOT(__MEMO__1___IO_EM_DI_00)) AND NOT(RUNNING) AND NOT(ERROR) ;
 IF __EDTB1 THEN
 PROCESS_INDEX := (  0) ;
 END_IF ;

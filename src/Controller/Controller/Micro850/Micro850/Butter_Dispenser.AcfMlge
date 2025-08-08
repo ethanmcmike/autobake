@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root Version="7">
+  <LanguageContainerStyle DisplayGrid="false" FunctionBlockInstanceName="true" VariableDisplayMode="NameAndAlias" VariableAlpha="255" VariableTextColor="windowtext" VariableOnlineTextColor="Red" VariableBackgroundColor="White" VariableGradientColor="White" Font="Microsoft Sans Serif, 8pt" CellWidth="30" CellHeight="25" NbCellsShapeWidth="4" NbCellsShapeHeight="2" CoilAllAligned="false" FitToWindowWidthEnabled="true" RungColor="WhiteSmoke" LabelColor="LightGoldenrodYellow" CommentColor="White" TextCommentColor="Green" RungCommentFont="Microsoft Sans Serif, 8.25pt" PowerRailColor="Silver" DisplayBlockImage="true" DisplayComment="true" PenWidth="2" DisplayLabel="false" OperatorBlockBackgroundColor="buttonface" OperatorBlockGradientColor="buttonface" FunctionBackgroundColor="Ivory" FunctionGradientColor="Ivory" FunctionBlockBackgroundColor="Silver" FunctionBlockGradientColor="Silver" Index="0">
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,1]">
+      <Text>Initialize</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Initialize\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,1],[1,1]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="buttonface" BackgroundGradient="buttonface" Key="[0,1],[2,1]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,1],[2,1],[2,2],[2,2]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,1],[2,1],[4,2],[4,2]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,11]">
+      <Text>Simulate butter dispensing - increase bowl weight after 2 seconds</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Simulate butter dispensing - increase bowl weight after 2 seconds\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[1,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="Silver" BackgroundGradient="Silver" Key="[0,11],[2,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[2,11],[2,12],[2,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[2,11],[4,12],[4,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,11],[5,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[5,12],[5,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[5,13],[5,13]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[7,12],[7,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[8,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,15]">
+      <Text>Detect butter dispensed by weight - at least 10g increase</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Detect butter dispensed by weight - at least 10g increase\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[1,15]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[2,15]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,15],[3,15]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[3,15],[3,16],[3,16]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[3,15],[3,17],[3,17]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[6,15]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,19]">
+      <Text>Decrease stock when dispensed</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Decrease stock when dispensed\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[1,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="buttonface" BackgroundGradient="buttonface" Key="[0,19],[2,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[2,19],[2,20],[2,20]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[2,19],[2,21],[2,21]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[2,19],[4,20],[4,20]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,23]">
+      <Text>Low count warning</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Low count warning\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="buttonface" BackgroundGradient="buttonface" Key="[0,23],[1,23]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,23],[1,23],[1,24],[1,24]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,23],[1,23],[1,25],[1,25]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,23],[4,23]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,27]">
+      <Text>Out of stock error</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Out of stock error\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,27],[1,27]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,27],[1,27],[1,28],[1,28]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,27],[1,27],[1,29],[1,29]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,27],[1,30]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,27],[4,27]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,32]">
+      <Text>Restock to max</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Restock to max\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,32],[1,32]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,32],[2,32]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,32],[2,32],[2,33],[2,33]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,32],[2,32],[4,33],[4,33]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,4]">
+      <Text>Initialize dispense butter</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Initialize dispense butter\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,4],[1,4]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,4],[2,4]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,6]">
+      <Text>Wait for taring to dispense butter</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Wait for taring to dispense butter\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,6],[1,6]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,6],[2,6]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,6],[3,6]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,8]">
+      <Text>Begin dispensing butter when signal received</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Begin dispensing butter when signal received\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,8],[1,8]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,8],[1,9]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,8],[2,8]" />
+  </LanguageContainerStyle>
+</Root>

@@ -19,79 +19,73 @@ __GL __LG0001 ;
 
 
 (*************** Rung **********************************)
-(*Begin dispensing butter when signal received*)
+(*Tare - store bowl weight measurement*)
 __STEPPRAGMA
 0,4
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__1___IO_EM_DO_00 *)
-__EDTB2 := (_IO_EM_DO_00 AND NOT(__MEMO__1___IO_EM_DO_00)) ;
-__EDTB3 := DISPENSING_BUTTER ;
-DISPENSING_BUTTER := (__EDTB2 OR __EDTB3) ;
+__EDTB2 := TARE ;
+IF __EDTB2 THEN
+TARE_WEIGHT := (  DI_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_2 := __EDTB2 ;
+__EDTB3 := __EDTB2 ;
+IF __EDTB3 THEN
+RELATIVE_WEIGHT := (DI_BOWL_WEIGHT - TARE_WEIGHT) ;
+END_IF ;
+__MO_MINUS_1 := __EDTB3 ;
+__EDTB4 := __EDTB3 ;
+IF __EDTB4 THEN
+(*Reset coil*)
+TARE := FALSE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0002 ;
-__MEMO__1___IO_EM_DO_00 := _IO_EM_DO_00 ; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__1___IO_EM_DO_00 *)
 
 
 (*************** Rung **********************************)
-(*Simulate butter dispensing - increase bowl weight after 2 seconds*)
+(*Initialize mix*)
 __STEPPRAGMA
-0,7
+0,8
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_7(DISPENSING_BUTTER, T#2S) ;
-__EDTB4 := TON_7.Q ;
-IF __EDTB4 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + C_BUTTER_WEIGHT) ;
-END_IF ;
-__MO_PLUS_1 := __EDTB4 ;
-__EDTB5 := __EDTB4 ;
+; (*Pulse detection on : MIX with __MEMO__1__MIX *)
+__EDTB5 := (MIX AND NOT(__MEMO__1__MIX)) ;
 IF __EDTB5 THEN
 (*Reset coil*)
-DISPENSING_BUTTER := FALSE ;
+MIX_COMPLETE := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0003 ;
+__MEMO__1__MIX := MIX ; (*Pulse detection on : MIX with __MEMO__1__MIX *)
 
 
 (*************** Rung **********************************)
-(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
+(*Mix output*)
 __STEPPRAGMA
-0,11
+0,10
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_2(_IO_EM_DO_01 AND SUGAR_PULSE_STATE, T#125MS) ;
-__EDTB6 := TON_2.Q ;
-IF __EDTB6 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 25.0) ;
-END_IF ;
-__MO_PLUS_2 := __EDTB6 ;
-__EDTB7 := __EDTB6 ;
-IF __EDTB7 THEN
-(*Reset coil*)
-SUGAR_PULSE_STATE := FALSE ;
-END_IF ;
+_IO_EM_DO_02 := MIX ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0004 ;
 
 
 (*************** Rung **********************************)
-(*Sugar pulse low to high*)
+(*Mix timer*)
 __STEPPRAGMA
-0,15
+0,12
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_3(NOT(SUGAR_PULSE_STATE), T#125MS) ;
-__EDTB8 := TON_3.Q ;
-IF __EDTB8 THEN
+TON_3(MIX, T#5S) ;
+__EDTB6 := TON_3.Q ;
+IF __EDTB6 THEN
 (*Set coil*)
-SUGAR_PULSE_STATE := TRUE ;
+MIX_COMPLETE := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -99,44 +93,51 @@ __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
-(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+(*Clean bowl*)
 __STEPPRAGMA
-0,18
+0,15
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_4(DISPENSE_VANILLA_DROP, T#250MS) ;
-__EDTB9 := TON_4.Q ;
-IF __EDTB9 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
-END_IF ;
-__MO_PLUS_3 := __EDTB9 ;
-__EDTB10 := __EDTB9 ;
-IF __EDTB10 THEN
-(*Reset coil*)
-DISPENSE_VANILLA_DROP := FALSE ;
-END_IF ;
+_IO_EM_DO_09 := CLEAN_BOWL ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
 
 
 (*************** Rung **********************************)
-(*Simulate emptying bowl - set weight to bowl weight after 1s*)
+(*Clean bowl for 5s*)
 __STEPPRAGMA
-0,22
+0,17
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_1(_IO_EM_DO_09, T#1S) ;
-__EDTB11 := TON_1.Q ;
-IF __EDTB11 THEN
-DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+TON_1(CLEAN_BOWL, T#5S) ;
+__EDTB7 := TON_1.Q ;
+IF __EDTB7 THEN
+(*Set coil*)
+BOWL_CLEAN := TRUE ;
 END_IF ;
-__MO_1GAIN_2 := __EDTB11 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;
+
+
+(*************** Rung **********************************)
+(*Simulate emptying bowl - set weight to bowl weight after 1s*)
+__STEPPRAGMA
+0,20
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(_IO_EM_DO_09, T#1S) ;
+__EDTB8 := TON_2.Q ;
+IF __EDTB8 THEN
+DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_3 := __EDTB8 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
 
 
 (*************** Code for the end of File **************)
@@ -146,15 +147,12 @@ __GL __LG0000 ;
 
 (*************** Local Symbols table *******************)
 (* __EDTB1 *)
-(* __MEMO__1___IO_EM_DO_00 *)
 (* __EDTB2 *)
 (* __EDTB3 *)
 (* __EDTB4 *)
+(* __MEMO__1__MIX *)
 (* __EDTB5 *)
 (* __EDTB6 *)
 (* __EDTB7 *)
 (* __EDTB8 *)
-(* __EDTB9 *)
-(* __EDTB10 *)
-(* __EDTB11 *)
 

@@ -1,0 +1,216 @@
+(****** QuickLD compiler *******************************)
+(****** Copyright Rockwell Automation Canada, Ltd ******)
+(****** ST *********************************************)
+
+(*************** Rung **********************************)
+(*Initialize*)
+__STEPPRAGMA
+0,1
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB1 := __SYSVA_FIRST_SCAN ;
+IF __EDTB1 THEN
+BUTTER_COUNT := (  C_BUTTER_MAX) ;
+END_IF ;
+__MO_1GAIN_1 := __EDTB1 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(**)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DISPENSE_BUTTER with __MEMO__1__DISPENSE_BUTTER *)
+__EDTB2 := (DISPENSE_BUTTER AND NOT(__MEMO__1__DISPENSE_BUTTER)) ;
+IF __EDTB2 THEN
+(*Set coil*)
+TARE := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
+__MEMO__1__DISPENSE_BUTTER := DISPENSE_BUTTER ; (*Pulse detection on : DISPENSE_BUTTER with __MEMO__1__DISPENSE_BUTTER *)
+
+
+(*************** Rung **********************************)
+(*Wait for taring to dispense butter*)
+__STEPPRAGMA
+0,6
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_00 := DISPENSE_BUTTER AND NOT(TARE) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*Begin dispensing butter when signal received*)
+__STEPPRAGMA
+0,8
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__2___IO_EM_DO_00 *)
+__EDTB3 := (_IO_EM_DO_00 AND NOT(__MEMO__2___IO_EM_DO_00)) ;
+__EDTB4 := DISPENSING_BUTTER ;
+DISPENSING_BUTTER := (__EDTB3 OR __EDTB4) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+__MEMO__2___IO_EM_DO_00 := _IO_EM_DO_00 ; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__2___IO_EM_DO_00 *)
+
+
+(*************** Rung **********************************)
+(*Simulate butter dispensing - increase bowl weight after 2 seconds*)
+__STEPPRAGMA
+0,11
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_7(DISPENSING_BUTTER, T#2S) ;
+__EDTB5 := TON_7.Q ;
+IF __EDTB5 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + C_BUTTER_WEIGHT) ;
+END_IF ;
+__MO_PLUS_1 := __EDTB5 ;
+__EDTB6 := __EDTB5 ;
+IF __EDTB6 THEN
+(*Reset coil*)
+DISPENSING_BUTTER := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
+
+
+(*************** Rung **********************************)
+(*Detect butter dispensed by weight - at least 10g increase*)
+__STEPPRAGMA
+0,15
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB8 := DISPENSE_BUTTER AND NOT(TARE) ;
+IF __EDTB8 THEN
+(* Operator output on : > with __EDTB7 *)
+__EDTB7 := (RELATIVE_WEIGHT > 10.0) ;
+ELSE
+__EDTB7 := FALSE ;
+END_IF ;
+__MO_GREAT_1 := __EDTB7 ;
+__EDTB9 := __EDTB7 ;
+IF __EDTB9 THEN
+(*Set coil*)
+BUTTER_DISPENSED := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+
+
+(*************** Rung **********************************)
+(*Decrease stock when dispensed*)
+__STEPPRAGMA
+0,19
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : BUTTER_DISPENSED with __MEMO__3__BUTTER_DISPENSED *)
+__EDTB10 := (BUTTER_DISPENSED AND NOT(__MEMO__3__BUTTER_DISPENSED)) ;
+IF __EDTB10 THEN
+BUTTER_COUNT := (BUTTER_COUNT - 1) ;
+END_IF ;
+__MO_MINUS_1 := __EDTB10 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+__MEMO__3__BUTTER_DISPENSED := BUTTER_DISPENSED ; (*Pulse detection on : BUTTER_DISPENSED with __MEMO__3__BUTTER_DISPENSED *)
+
+
+(*************** Rung **********************************)
+(*Low count warning*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB12 := TRUE ;
+IF __EDTB12 THEN
+(* Operator output on : <= with __EDTB11 *)
+__EDTB11 := (BUTTER_COUNT <= 1) ;
+ELSE
+__EDTB11 := FALSE ;
+END_IF ;
+__MO_LESSEQUAL_1 := __EDTB11 ;
+WARN_BUTTER_LOW := __EDTB11 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Out of stock error*)
+__STEPPRAGMA
+0,27
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB14 := TRUE ;
+IF __EDTB14 THEN
+(* Operator output on : = with __EDTB13 *)
+__EDTB13 := (BUTTER_COUNT = 0) ;
+ELSE
+__EDTB13 := FALSE ;
+END_IF ;
+__MO_EQUAL_1 := __EDTB13 ;
+__EDTB15 := __EDTB13 ;
+__EDTB16 := _IO_EM_DI_03 ;
+ERROR_BUTTER_EMPTY := (__EDTB15 OR __EDTB16) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
+
+
+(*************** Rung **********************************)
+(*Restock to max*)
+__STEPPRAGMA
+0,32
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB17 := _IO_EM_DI_02 ;
+IF __EDTB17 THEN
+BUTTER_COUNT := (  C_BUTTER_MAX) ;
+END_IF ;
+__MO_1GAIN_2 := __EDTB17 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000A ;
+
+
+(*************** Code for the end of File **************)
+__GL __LG0000 ;
+
+
+
+(*************** Local Symbols table *******************)
+(* __EDTB1 *)
+(* __MEMO__1__DISPENSE_BUTTER *)
+(* __EDTB2 *)
+(* __MEMO__2___IO_EM_DO_00 *)
+(* __EDTB3 *)
+(* __EDTB4 *)
+(* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
+(* __MEMO__3__BUTTER_DISPENSED *)
+(* __EDTB10 *)
+(* __EDTB11 *)
+(* __EDTB12 *)
+(* __EDTB13 *)
+(* __EDTB14 *)
+(* __EDTB15 *)
+(* __EDTB16 *)
+(* __EDTB17 *)
+

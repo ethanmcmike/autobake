@@ -1,0 +1,54 @@
+PROGRAM Mixing_Bowl
+#info= QLD
+BOF
+
+
+(*Initialize bowl weight*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+EOR [5,0]
+
+
+(*Tare - store bowl weight measurement*)
+
+SOR  [0,4] (**) (**)  XIC  [1,0] (*Tare*) (**)  FB  [2,0] (*1 gain*) (*5*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Tare_Weight*) (**) )  FB  [5,0] (*-*) (*16*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*Tare_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Relative_Weight*) (**) )  OTR  [8,0] (*Tare*) (**)
+EOR [9,0]
+
+
+(*Initialize mix*)
+
+SOR  [0,8] (**) (**)  XIP  [1,0] (*Mix*) (**)  OTR  [2,0] (*Mix_Complete*) (**)
+EOR [3,0]
+
+
+(*Mix output*)
+
+SOR  [0,10] (**) (**)  XIC  [1,0] (*Mix*) (**)  OTE  [2,0] (*_IO_EM_DO_02*) (*DO_Mixer*)
+EOR [3,0]
+
+
+(*Mix timer*)
+
+SOR  [0,12] (**) (**)  XIC  [1,0] (*Mix*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*Mix_Complete*) (**)
+EOR [6,0]
+
+
+(*Clean bowl*)
+
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  OTE  [2,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)
+EOR [3,0]
+
+
+(*Clean bowl for 5s*)
+
+SOR  [0,17] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*Bowl_Clean*) (**)
+EOR [6,0]
+
+
+(*Simulate emptying bowl - set weight to bowl weight after 1s*)
+
+SOR  [0,20] (**) (**)  XIC  [1,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+EOR [8,0]
+EOF
+#end_info
+END_PROGRAM

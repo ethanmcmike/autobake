@@ -1,0 +1,21 @@
+PROGRAM Flour_Dispenser
+#info= QLD
+BOF
+
+
+(*Dispense flour until weight reached*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*_IO_EM_DO_07*) (**)  FB  [2,0] (*>=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Flour_Weight*) (**)  , (*i2:*)(*Flour_Needed*) (**) ; (*o1:*)(**) (**) )  OTR  [5,0] (*Next_Step*) (**)
+EOR [6,0]
+
+
+(*Simulate dispensing flour*)
+
+SOR  [0,5] (**) (**)  XIC  [1,0] (*_IO_EM_DO_07*) (**)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#500ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*0.1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+EOR [8,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=16
+#end_info
+END_PROGRAM

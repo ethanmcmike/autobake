@@ -1,0 +1,48 @@
+PROGRAM Sugar_Dispenser
+#info= QLD
+BOF
+
+
+(*Initialize dispense sugar*)
+
+SOR  [0,1] (**) (**)  XIP  [1,0] (*Dispense_Sugar*) (**)  OTS  [2,0] (*Tare*) (**)
+EOR [3,0]
+
+
+(*Wait for taring to dispense sugar*)
+
+SOR  [0,3] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  OTE  [3,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)
+EOR [4,0]
+
+
+(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
+
+SOR  [0,5] (**) (**)  XIC  [1,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)  XIC  [2,0] (*Sugar_Pulse_State*) (**)  FB  [3,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [6,0] (*+*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*25.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [9,0] (*Sugar_Pulse_State*) (**)
+EOR [10,0]
+
+
+(*Sugar pulse low to high*)
+
+SOR  [0,9] (**) (**)  XIO  [1,0] (*Sugar_Pulse_State*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*Sugar_Pulse_State*) (**)
+EOR [6,0]
+
+
+(*Detect sugar dispensed by weight*)
+
+SOR  [0,12] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  FB  [3,0] (*>=*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Relative_Weight*) (**)  , (*i2:*)(*Recipe_Sugar*) (**) ; (*o1:*)(**) (**) )  OTS  [6,0] (*Sugar_Dispensed*) (**)
+EOR [7,0]
+
+
+(*Low level warning*)
+
+SOR  [0,16] (**) (**)  XIC  [1,0] (*_IO_EM_DI_04*) (*DI_Sugar_Low_PE*)  OTE  [2,0] (*Warn_Sugar_Low*) (**)
+EOR [3,0]
+
+
+(*Empty error*)
+
+SOR  [0,18] (**) (**)  XIC  [1,0] (*_IO_EM_DI_05*) (*DI_Sugar_Empty_PE*)  OTE  [2,0] (*Error_Sugar_Empty*) (**)
+EOR [3,0]
+EOF
+#end_info
+END_PROGRAM

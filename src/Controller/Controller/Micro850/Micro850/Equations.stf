@@ -1,3 +1,6 @@
 PROGRAM Equations
 Relative_Weight := DI_Bowl_Weight - Tare_Weight;
+Error := Error_Butter_Empty OR Error_Sugar_Empty;
+Warn := Warn_Butter_Low OR Warn_Sugar_Low;
+Ready := NOT(Running OR ERROR);
 END_PROGRAM

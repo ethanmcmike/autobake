@@ -3,17 +3,26 @@
   <AcfElementGuid Guid="05bb0786-39c6-4441-8012-87fd33220a47">
     <File>Process.AcfMlge</File>
   </AcfElementGuid>
-  <AcfElementGuid Guid="4b6a543c-24bb-4f86-a52e-422ee90cdf1d">
-    <File>Simulation.AcfMlge</File>
+  <AcfElementGuid Guid="47c9b7c8-5201-4658-8b3b-38a847498011">
+    <File>Butter_Dispenser.AcfMlge</File>
+  </AcfElementGuid>
+  <AcfElementGuid Guid="6a33c8d6-b665-465c-8cb7-84489e70f9b3">
+    <File>Indicators.AcfMlge</File>
   </AcfElementGuid>
   <AcfElementGuid Guid="6b683907-d984-4856-91a8-f5d31e96473a">
     <File>Equations.AcfMlge</File>
   </AcfElementGuid>
-  <AcfElementGuid Guid="c5cd0cd7-f713-48f6-8cdb-fe329334163b">
-    <File>Steps.AcfMlge</File>
+  <AcfElementGuid Guid="b7a6aff1-e061-4a09-9719-f8a8d6a73512">
+    <File>Vanilla_Dispenser.AcfMlge</File>
   </AcfElementGuid>
-  <AcfElementGuid Guid="ecb20445-fb56-49f1-ab06-7b28359585d4">
-    <File>Indicators.AcfMlge</File>
+  <AcfElementGuid Guid="c5cd0cd7-f713-48f6-8cdb-fe329334163b">
+    <File>Flour_Dispenser.AcfMlge</File>
+  </AcfElementGuid>
+  <AcfElementGuid Guid="cb721a14-af36-4a56-86e6-d81bca35d333">
+    <File>Sugar_Dispenser.AcfMlge</File>
+  </AcfElementGuid>
+  <AcfElementGuid Guid="d048296f-b4eb-4967-b2c0-d678fb189523">
+    <File>Mixing_Bowl.AcfMlge</File>
   </AcfElementGuid>
   <AcfElementGuid Guid="f28aede8-7e36-4046-9b4f-e8b28a277094">
     <File>Constants.AcfMlge</File>

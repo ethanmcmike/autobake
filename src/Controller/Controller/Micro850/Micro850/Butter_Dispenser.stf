@@ -1,0 +1,77 @@
+PROGRAM Butter_Dispenser
+#info= QLD
+BOF
+
+
+(*Initialize*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Butter_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Butter_Count*) (**) )
+EOR [5,0]
+
+
+(**)
+
+SOR  [0,4] (**) (**)  XIP  [1,0] (*Dispense_Butter*) (**)  OTS  [2,0] (*Tare*) (**)
+EOR [3,0]
+
+
+(*Wait for taring to dispense butter*)
+
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Butter*) (**)  XIO  [2,0] (*Tare*) (**)  OTE  [3,0] (*_IO_EM_DO_00*) (*DO_Butter_Dispenser*)
+EOR [4,0]
+
+
+(*Begin dispensing butter when signal received*)
+
+SOR  [0,8] (**) (**)  
+ BST  XIP  [1,0] (*_IO_EM_DO_00*) (*DO_Butter_Dispenser*)
+   NXB  XIC  [1,1] (*Dispensing_Butter*) (**)
+ BND
+  OTE  [2,0] (*Dispensing_Butter*) (**)
+EOR [3,0]
+
+
+(*Simulate butter dispensing - increase bowl weight after 2 seconds*)
+
+SOR  [0,11] (**) (**)  XIC  [1,0] (*Dispensing_Butter*) (**)  FB  [2,0] (*TON*) (*TON_7*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#2s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*C_Butter_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [8,0] (*Dispensing_Butter*) (**)
+EOR [9,0]
+
+
+(*Detect butter dispensed by weight - at least 10g increase*)
+
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Dispense_Butter*) (**)  XIO  [2,0] (*Tare*) (**)  FB  [3,0] (*>*) (*13*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Relative_Weight*) (**)  , (*i2:*)(*10.0*) (**) ; (*o1:*)(**) (**) )  OTS  [6,0] (*Butter_Dispensed*) (**)
+EOR [7,0]
+
+
+(*Decrease stock when dispensed*)
+
+SOR  [0,19] (**) (**)  XIP  [1,0] (*Butter_Dispensed*) (**)  FB  [2,0] (*-*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Butter_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Butter_Count*) (**) )
+EOR [5,0]
+
+
+(*Low count warning*)
+
+SOR  [0,23] (**) (**)  FB  [1,0] (*<=*) (*4*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Butter_Count*) (**)  , (*i2:*)(*1*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*Warn_Butter_Low*) (**)
+EOR [5,0]
+
+
+(*Out of stock error*)
+
+SOR  [0,27] (**) (**)  
+ BST  FB  [1,0] (*=*) (*5*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Butter_Count*) (**)  , (*i2:*)(*0*) (**) ; (*o1:*)(**) (**) )
+   NXB  XIC  [1,3] (*_IO_EM_DI_03*) (*DI_Butter_PE*)
+ BND
+  OTE  [4,0] (*Error_Butter_Empty*) (**)
+EOR [5,0]
+
+
+(*Restock to max*)
+
+SOR  [0,32] (**) (**)  XIC  [1,0] (*_IO_EM_DI_02*) (*DI_Restocked*)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Butter_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Butter_Count*) (**) )
+EOR [5,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=5
+#end_info
+END_PROGRAM

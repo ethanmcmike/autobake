@@ -10,4 +10,8 @@ IDX_Mix_1 := 3;
 IDX_Vanilla := 6;
 IDX_Clean := 4;
 IDX_Reset := 5;
+
+//Stock values
+C_Butter_Max := 8;
+C_Eggs_Max := 12;
 END_PROGRAM
