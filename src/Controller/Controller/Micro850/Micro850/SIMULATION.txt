@@ -58,41 +58,40 @@ __GL __LG0003 ;
 
 
 (*************** Rung **********************************)
-(*Simulate dispensing sugar*)
+(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
 __STEPPRAGMA
 0,11
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_3(_IO_EM_DO_01, T#500MS) ;
-SUGAR_TIMER := TON_3.ET ;
-__EDTB6 := TON_3.Q ;
+TON_2(_IO_EM_DO_01 AND SUGAR_PULSE_STATE, T#125MS) ;
+__EDTB6 := TON_2.Q ;
 IF __EDTB6 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.1) ;
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 25.0) ;
 END_IF ;
 __MO_PLUS_2 := __EDTB6 ;
+__EDTB7 := __EDTB6 ;
+IF __EDTB7 THEN
+(*Reset coil*)
+SUGAR_PULSE_STATE := FALSE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0004 ;
 
 
 (*************** Rung **********************************)
-(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+(*Sugar pulse low to high*)
 __STEPPRAGMA
 0,15
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_4(DISPENSE_VANILLA_DROP, T#250MS) ;
-__EDTB7 := TON_4.Q ;
-IF __EDTB7 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
-END_IF ;
-__MO_PLUS_3 := __EDTB7 ;
-__EDTB8 := __EDTB7 ;
+TON_3(NOT(SUGAR_PULSE_STATE), T#125MS) ;
+__EDTB8 := TON_3.Q ;
 IF __EDTB8 THEN
-(*Reset coil*)
-DISPENSE_VANILLA_DROP := FALSE ;
+(*Set coil*)
+SUGAR_PULSE_STATE := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -100,21 +99,44 @@ __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
+(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+__STEPPRAGMA
+0,18
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_4(DISPENSE_VANILLA_DROP, T#250MS) ;
+__EDTB9 := TON_4.Q ;
+IF __EDTB9 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
+END_IF ;
+__MO_PLUS_3 := __EDTB9 ;
+__EDTB10 := __EDTB9 ;
+IF __EDTB10 THEN
+(*Reset coil*)
+DISPENSE_VANILLA_DROP := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+
+
+(*************** Rung **********************************)
 (*Simulate emptying bowl - set weight to bowl weight after 1s*)
 __STEPPRAGMA
-0,19
+0,22
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
 TON_1(_IO_EM_DO_09, T#1S) ;
-__EDTB9 := TON_1.Q ;
-IF __EDTB9 THEN
+__EDTB11 := TON_1.Q ;
+IF __EDTB11 THEN
 DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
 END_IF ;
-__MO_1GAIN_2 := __EDTB9 ;
+__MO_1GAIN_2 := __EDTB11 ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0006 ;
+__GL __LG0007 ;
 
 
 (*************** Code for the end of File **************)
@@ -133,4 +155,6 @@ __GL __LG0000 ;
 (* __EDTB7 *)
 (* __EDTB8 *)
 (* __EDTB9 *)
+(* __EDTB10 *)
+(* __EDTB11 *)
 

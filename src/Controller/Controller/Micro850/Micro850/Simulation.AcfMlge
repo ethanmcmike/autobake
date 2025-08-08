@@ -14,26 +14,28 @@
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,1],[2,1],[2,2],[2,2]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,1],[2,1],[4,2],[4,2]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,11]">
-      <Text>Simulate dispensing sugar</Text>
+      <Text>Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low</Text>
       <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
 {\colortbl ;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\f0\fs17 Simulate dispensing sugar\par
+\viewkind4\uc1\pard\cf1\f0\fs17 Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low\par
 }
 </RtfText>
     </ShapeStyle>
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[1,11]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,11],[2,11]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[2,11],[2,12],[2,12]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[2,11],[4,12],[4,12]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,11],[5,11]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[5,12],[5,12]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[5,13],[5,13]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[5,11],[7,12],[7,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[2,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,11],[3,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[3,11],[3,12],[3,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[3,11],[5,12],[5,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,11],[6,11]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[6,11],[6,12],[6,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[6,11],[6,13],[6,13]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[6,11],[8,12],[8,12]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,11],[9,11]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,15]">
-      <Text>Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal</Text>
+      <Text>Sugar pulse low to high</Text>
       <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
 {\colortbl ;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\f0\fs17 Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal\par
+\viewkind4\uc1\pard\cf1\f0\fs17 Sugar pulse low to high\par
 }
 </RtfText>
     </ShapeStyle>
@@ -41,12 +43,25 @@
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="Silver" BackgroundGradient="Silver" Key="[0,15],[2,15]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[2,15],[2,16],[2,16]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[2,15],[4,16],[4,16]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,15],[5,15]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[5,15],[5,16],[5,16]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[5,15],[5,17],[5,17]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[5,15],[7,16],[7,16]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[8,15]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,19]">
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,15],[5,15]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,18]">
+      <Text>Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal</Text>
+      <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red0\green128\blue0;}
+\viewkind4\uc1\pard\cf1\f0\fs17 Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal\par
+}
+</RtfText>
+    </ShapeStyle>
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[1,18]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="Silver" BackgroundGradient="Silver" Key="[0,18],[2,18]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[2,18],[2,19],[2,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[2,18],[4,19],[4,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,18],[5,18]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[5,18],[5,19],[5,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[5,18],[5,20],[5,20]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[5,18],[7,19],[7,19]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdCoilShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,18],[8,18]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,22]">
       <Text>Simulate emptying bowl - set weight to bowl weight after 1s</Text>
       <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
 {\colortbl ;\red0\green128\blue0;}
@@ -54,13 +69,13 @@
 }
 </RtfText>
     </ShapeStyle>
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[1,19]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="Silver" BackgroundGradient="Silver" Key="[0,19],[2,19]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[2,19],[2,20],[2,20]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[2,19],[4,20],[4,20]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,19],[5,19]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[5,19],[5,20],[5,20]" />
-    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,19],[5,19],[7,20],[7,20]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdContactShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,22],[1,22]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Alpha="255" Background="Silver" BackgroundGradient="Silver" Key="[0,22],[2,22]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,22],[2,22],[2,23],[2,23]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,22],[2,22],[4,23],[4,23]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.Core.Shape.WbPouCallShape" Assembly="ISaGRAF.Workbench.Mlge.Core" FunctionBlockInstanceName="true" Key="[0,22],[5,22]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,22],[5,22],[5,23],[5,23]" />
+    <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLDVariableAccessShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" Alpha="255" Background="#FFFFFFFF" BackgroundGradient="#FFFFFFFF" FontColor="windowtext" DisplayMode="NameAndAlias" Key="[0,22],[5,22],[7,23],[7,23]" />
     <ShapeStyle Type="ISaGRAF.Workbench.Mlge.LanguageContainer.LD.Shape.WbLdRungShape" Assembly="ISaGRAF.Workbench.Mlge.LanguageContainer.LD" PowerRailColor="Silver" DisplayLabel="false" RungColor="WhiteSmoke" CommentColor="White" LabelColor="LightGoldenrodYellow" DisplayComment="true" Key="[0,4]">
       <Text>Begin dispensing butter when signal received</Text>
       <RtfText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}

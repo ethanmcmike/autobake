@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevicePreferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Micro800ConnectionPath>MCMIKEPAD!AB_ETHIP-1\192.168.0.6</Micro800ConnectionPath>
-  <RSLCPath>MCMIKEPAD!AB_ETHIP-1\192.168.0.6</RSLCPath>
+  <Micro800ConnectionPath>MCMIKEPAD!AB_ETHIP-1\172.18.207.137</Micro800ConnectionPath>
+  <RSLCPath>MCMIKEPAD!AB_ETHIP-1\172.18.207.137</RSLCPath>
   <FTLPath />
 </DevicePreferences>
