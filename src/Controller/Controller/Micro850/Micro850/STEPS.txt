@@ -137,105 +137,88 @@ __GL __LG0007 ;
 
 
 (*************** Rung **********************************)
-(*Initialize dispense vanilla*)
+(*Initialize mix*)
 __STEPPRAGMA
 0,21
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__3___IO_EM_DO_02 *)
-__EDTB12 := (_IO_EM_DO_02 AND NOT(__MEMO__3___IO_EM_DO_02)) ;
+; (*Pulse detection on : MIX with __MEMO__3__MIX *)
+__EDTB12 := (MIX AND NOT(__MEMO__3__MIX)) ;
 IF __EDTB12 THEN
-VANILLA_COUNT := (  0) ;
-END_IF ;
-__MO_1GAIN_2 := __EDTB12 ;
-__EDTB13 := __EDTB12 ;
-IF __EDTB13 THEN
 (*Reset coil*)
-VANILLA_DISPENSED := FALSE ;
+MIX_COMPLETE := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0008 ;
-__MEMO__3___IO_EM_DO_02 := _IO_EM_DO_02 ; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__3___IO_EM_DO_02 *)
+__MEMO__3__MIX := MIX ; (*Pulse detection on : MIX with __MEMO__3__MIX *)
 
 
 (*************** Rung **********************************)
-(*Simulate vanilla drop actuator output pulse*)
+(*Mix output*)
 __STEPPRAGMA
-0,24
+0,23
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_6(DI_VANILLA_DROP, T#250MS) ;
-__EDTB14 := TON_6.Q ;
-IF __EDTB14 THEN
-(*Reset coil*)
-DI_VANILLA_DROP := FALSE ;
-END_IF ;
+_IO_EM_DO_02 := MIX ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0009 ;
 
 
 (*************** Rung **********************************)
-(*Count number of vanilla drops dispensed based on actuator output signal*)
+(*Mix timer*)
 __STEPPRAGMA
-0,27
+0,25
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__4__DI_VANILLA_DROP *)
-__EDTB15 := _IO_EM_DO_02 AND (DI_VANILLA_DROP AND NOT(__MEMO__4__DI_VANILLA_DROP)) ;
-IF __EDTB15 THEN
-VANILLA_COUNT := (VANILLA_COUNT + 1) ;
+(* FB call: TON *)
+TON_3(MIX, T#5S) ;
+__EDTB13 := TON_3.Q ;
+IF __EDTB13 THEN
+(*Set coil*)
+MIX_COMPLETE := TRUE ;
 END_IF ;
-__MO_PLUS_1 := __EDTB15 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000A ;
-__MEMO__4__DI_VANILLA_DROP := DI_VANILLA_DROP ; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__4__DI_VANILLA_DROP *)
 
 
 (*************** Rung **********************************)
-(*Stop dispensing vanilla when recipe drop count reached*)
+(*Initialize dispense vanilla*)
 __STEPPRAGMA
-0,31
+0,28
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB17 := _IO_EM_DO_02 ;
-IF __EDTB17 THEN
-(* Operator output on : >= with __EDTB16 *)
-__EDTB16 := (VANILLA_COUNT >= RECIPE_VANILLA) ;
-ELSE
-__EDTB16 := FALSE ;
+; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__4___IO_EM_DO_02 *)
+__EDTB14 := (_IO_EM_DO_02 AND NOT(__MEMO__4___IO_EM_DO_02)) ;
+IF __EDTB14 THEN
+VANILLA_COUNT := (  0) ;
 END_IF ;
-__MO_GREATEQUAL_2 := __EDTB16 ;
-__EDTB18 := __EDTB16 ;
-IF __EDTB18 THEN
+__MO_1GAIN_2 := __EDTB14 ;
+__EDTB15 := __EDTB14 ;
+IF __EDTB15 THEN
 (*Reset coil*)
-_IO_EM_DO_02 := FALSE ;
-END_IF ;
-__EDTB19 := __EDTB16 ;
-IF __EDTB19 THEN
-(*Set coil*)
-VANILLA_DISPENSED := TRUE ;
+VANILLA_DISPENSED := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000B ;
+__MEMO__4___IO_EM_DO_02 := _IO_EM_DO_02 ; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__4___IO_EM_DO_02 *)
 
 
 (*************** Rung **********************************)
-(*Mix for 10s*)
+(*Simulate vanilla drop actuator output pulse*)
 __STEPPRAGMA
-0,35
+0,31
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_5(MIX, T#10S) ;
-__EDTB20 := TON_5.Q ;
-IF __EDTB20 THEN
+TON_6(DI_VANILLA_DROP, T#250MS) ;
+__EDTB16 := TON_6.Q ;
+IF __EDTB16 THEN
 (*Reset coil*)
-MIX := FALSE ;
+DI_VANILLA_DROP := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -243,75 +226,140 @@ __GL __LG000C ;
 
 
 (*************** Rung **********************************)
-(*Dispense flour until weight reached*)
+(*Count number of vanilla drops dispensed based on actuator output signal*)
+__STEPPRAGMA
+0,34
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__5__DI_VANILLA_DROP *)
+__EDTB17 := _IO_EM_DO_02 AND (DI_VANILLA_DROP AND NOT(__MEMO__5__DI_VANILLA_DROP)) ;
+IF __EDTB17 THEN
+VANILLA_COUNT := (VANILLA_COUNT + 1) ;
+END_IF ;
+__MO_PLUS_1 := __EDTB17 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000D ;
+__MEMO__5__DI_VANILLA_DROP := DI_VANILLA_DROP ; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__5__DI_VANILLA_DROP *)
+
+
+(*************** Rung **********************************)
+(*Stop dispensing vanilla when recipe drop count reached*)
 __STEPPRAGMA
 0,38
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB22 := _IO_EM_DO_07 ;
-IF __EDTB22 THEN
-(* Operator output on : >= with __EDTB21 *)
-__EDTB21 := (FLOUR_WEIGHT >= FLOUR_NEEDED) ;
+__EDTB19 := _IO_EM_DO_02 ;
+IF __EDTB19 THEN
+(* Operator output on : >= with __EDTB18 *)
+__EDTB18 := (VANILLA_COUNT >= RECIPE_VANILLA) ;
 ELSE
-__EDTB21 := FALSE ;
+__EDTB18 := FALSE ;
 END_IF ;
-__MO_GREATEQUAL_3 := __EDTB21 ;
-__EDTB23 := __EDTB21 ;
-IF __EDTB23 THEN
+__MO_GREATEQUAL_2 := __EDTB18 ;
+__EDTB20 := __EDTB18 ;
+IF __EDTB20 THEN
 (*Reset coil*)
-NEXT_STEP := FALSE ;
+_IO_EM_DO_02 := FALSE ;
 END_IF ;
-
-(*************** Code for the end of Rung **************)
-__GL __LG000D ;
-
-
-(*************** Rung **********************************)
-(*Simulate dispensing flour*)
-__STEPPRAGMA
-0,42
-__ENDSTEPPRAGMA
-(*Label :*)(**)
-(* FB call: TON *)
-TON_2(_IO_EM_DO_07, T#500MS) ;
-__EDTB24 := TON_2.Q ;
-IF __EDTB24 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.1) ;
+__EDTB21 := __EDTB18 ;
+IF __EDTB21 THEN
+(*Set coil*)
+VANILLA_DISPENSED := TRUE ;
 END_IF ;
-__MO_PLUS_2 := __EDTB24 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000E ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl*)
+(*Mix for 10s*)
 __STEPPRAGMA
-0,46
+0,42
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_09 := CLEAN_BOWL ;
+(* FB call: TON *)
+TON_5(MIX, T#10S) ;
+__EDTB22 := TON_5.Q ;
+IF __EDTB22 THEN
+(*Reset coil*)
+MIX := FALSE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000F ;
 
 
 (*************** Rung **********************************)
+(*Dispense flour until weight reached*)
+__STEPPRAGMA
+0,45
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB24 := _IO_EM_DO_07 ;
+IF __EDTB24 THEN
+(* Operator output on : >= with __EDTB23 *)
+__EDTB23 := (FLOUR_WEIGHT >= FLOUR_NEEDED) ;
+ELSE
+__EDTB23 := FALSE ;
+END_IF ;
+__MO_GREATEQUAL_3 := __EDTB23 ;
+__EDTB25 := __EDTB23 ;
+IF __EDTB25 THEN
+(*Reset coil*)
+NEXT_STEP := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0010 ;
+
+
+(*************** Rung **********************************)
+(*Simulate dispensing flour*)
+__STEPPRAGMA
+0,49
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(_IO_EM_DO_07, T#500MS) ;
+__EDTB26 := TON_2.Q ;
+IF __EDTB26 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.1) ;
+END_IF ;
+__MO_PLUS_2 := __EDTB26 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0011 ;
+
+
+(*************** Rung **********************************)
+(*Clean bowl*)
+__STEPPRAGMA
+0,53
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_09 := CLEAN_BOWL ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0012 ;
+
+
+(*************** Rung **********************************)
 (*Clean bowl for 5s*)
 __STEPPRAGMA
-0,48
+0,55
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
 TON_1(CLEAN_BOWL, T#5S) ;
-__EDTB25 := TON_1.Q ;
-IF __EDTB25 THEN
+__EDTB27 := TON_1.Q ;
+IF __EDTB27 THEN
 (*Set coil*)
 BOWL_CLEAN := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0010 ;
+__GL __LG0013 ;
 
 
 (*************** Code for the end of File **************)
@@ -333,13 +381,14 @@ __GL __LG0000 ;
 (* __EDTB9 *)
 (* __EDTB10 *)
 (* __EDTB11 *)
-(* __MEMO__3___IO_EM_DO_02 *)
+(* __MEMO__3__MIX *)
 (* __EDTB12 *)
 (* __EDTB13 *)
+(* __MEMO__4___IO_EM_DO_02 *)
 (* __EDTB14 *)
-(* __MEMO__4__DI_VANILLA_DROP *)
 (* __EDTB15 *)
 (* __EDTB16 *)
+(* __MEMO__5__DI_VANILLA_DROP *)
 (* __EDTB17 *)
 (* __EDTB18 *)
 (* __EDTB19 *)
@@ -349,4 +398,6 @@ __GL __LG0000 ;
 (* __EDTB23 *)
 (* __EDTB24 *)
 (* __EDTB25 *)
+(* __EDTB26 *)
+(* __EDTB27 *)
 
