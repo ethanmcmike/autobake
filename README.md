@@ -29,7 +29,9 @@ Output Signals:
 The butter dispenser dispenses a stick of butter for every high pulse received. It has not sensor or output to verify the butter has been dispensed and is assumed to be mechanically reliable.
 
 ## Sugar Dispenser
-The sugar dispenser dispenses sugar at a constant rate while it receives a high signal. The PLC determines when to cutoff sugar dispensing based on the weight of the bowl. The distance between the dispenser and the bowl that would contain extra sugar from when the weight reached the desired amount and the dispenser signal was cutoff is assumed to be negligible.
+The sugar dispenser dispenses sugar at a constant rate while receiving a high signal. The PLC determines when to cutoff sugar dispensing based on the weight of the bowl. The distance between the dispenser and the bowl that would contain extra sugar from when the weight reached the desired amount and the dispenser signal was cutoff is assumed to be negligible.
+
+The sugar is simulated to dispense at a rate of 100g/s by generating a pulse with a 250ms period and dispensing 25g each period.
 
 # Recipe
 The user will be able to define ingredient quantities to adjust the recipe as desired. For example a recipe might look like:
