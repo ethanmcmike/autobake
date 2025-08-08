@@ -5,8 +5,8 @@ C_Butter_Weight := 115.0;	//g
 
 // Process indices
 IDX_Butter := 1;
-IDX_Sugar := 6;
+IDX_Sugar := 2;
 IDX_Vanilla := 6;
-IDX_Clean := 2;
-IDX_Reset := 3;
+IDX_Clean := 3;
+IDX_Reset := 4;
 END_PROGRAM

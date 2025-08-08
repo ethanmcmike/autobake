@@ -114,7 +114,7 @@ __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
-(*Mix_1*)
+(*Dispense sugar*)
 __STEPPRAGMA
 0,18
 __ENDSTEPPRAGMA
@@ -122,68 +122,76 @@ __ENDSTEPPRAGMA
 __EDTB13 := RUNNING ;
 IF __EDTB13 THEN
 (* Operator output on : = with __EDTB12 *)
-__EDTB12 := (PROCESS_INDEX = 5) ;
+__EDTB12 := (PROCESS_INDEX = IDX_SUGAR) ;
 ELSE
 __EDTB12 := FALSE ;
 END_IF ;
 __MO_EQUAL_3 := __EDTB12 ;
-MIX := __EDTB12 ;
-__EDTB14 := __EDTB12 AND NOT(MIX) ;
-IF __EDTB14 THEN
-(*Set coil*)
-NEXT_STEP := TRUE ;
-END_IF ;
+DISPENSE_SUGAR := __EDTB12 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl*)
+(*Initialize dispense sugar*)
 __STEPPRAGMA
 0,22
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__3__DISPENSE_SUGAR *)
+__EDTB14 := (DISPENSE_SUGAR AND NOT(__MEMO__3__DISPENSE_SUGAR)) ;
+IF __EDTB14 THEN
+(*Reset coil*)
+SUGAR_DISPENSED := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+__MEMO__3__DISPENSE_SUGAR := DISPENSE_SUGAR ; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__3__DISPENSE_SUGAR *)
+
+
+(*************** Rung **********************************)
+(*Wait for sugar dispensing to finish*)
+__STEPPRAGMA
+0,24
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 __EDTB16 := RUNNING ;
 IF __EDTB16 THEN
 (* Operator output on : = with __EDTB15 *)
-__EDTB15 := (PROCESS_INDEX = IDX_CLEAN) ;
+__EDTB15 := (PROCESS_INDEX = IDX_SUGAR) ;
 ELSE
 __EDTB15 := FALSE ;
 END_IF ;
 __MO_EQUAL_4 := __EDTB15 ;
-CLEAN_BOWL := __EDTB15 ;
-
-(*************** Code for the end of Rung **************)
-__GL __LG0007 ;
-
-
-(*************** Rung **********************************)
-(*Initialize clean bowl*)
-__STEPPRAGMA
-0,26
-__ENDSTEPPRAGMA
-(*Label :*)(**)
-; (*Pulse detection on : CLEAN_BOWL with __MEMO__3__CLEAN_BOWL *)
-__EDTB17 := RUNNING AND (CLEAN_BOWL AND NOT(__MEMO__3__CLEAN_BOWL)) ;
+__EDTB17 := __EDTB15 AND SUGAR_DISPENSED ;
 IF __EDTB17 THEN
-(*Reset coil*)
-BOWL_CLEAN := FALSE ;
+(*Set coil*)
+NEXT_STEP := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0008 ;
-__MEMO__3__CLEAN_BOWL := CLEAN_BOWL ; (*Pulse detection on : CLEAN_BOWL with __MEMO__3__CLEAN_BOWL *)
 
 
 (*************** Rung **********************************)
-(*End of Step 5 - Wait for cleaning to finish*)
+(*Mix_1*)
 __STEPPRAGMA
 0,28
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB18 := RUNNING AND CLEAN_BOWL AND BOWL_CLEAN ;
-IF __EDTB18 THEN
+__EDTB19 := RUNNING ;
+IF __EDTB19 THEN
+(* Operator output on : = with __EDTB18 *)
+__EDTB18 := (PROCESS_INDEX = 5) ;
+ELSE
+__EDTB18 := FALSE ;
+END_IF ;
+__MO_EQUAL_5 := __EDTB18 ;
+MIX := __EDTB18 ;
+__EDTB20 := __EDTB18 AND NOT(MIX) ;
+IF __EDTB20 THEN
 (*Set coil*)
 NEXT_STEP := TRUE ;
 END_IF ;
@@ -193,32 +201,112 @@ __GL __LG0009 ;
 
 
 (*************** Rung **********************************)
-(*End process*)
+(*Clean bowl*)
 __STEPPRAGMA
-0,30
+0,32
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB20 := RUNNING ;
-IF __EDTB20 THEN
-(* Operator output on : >= with __EDTB19 *)
-__EDTB19 := (PROCESS_INDEX >= IDX_RESET) ;
+__EDTB22 := RUNNING ;
+IF __EDTB22 THEN
+(* Operator output on : = with __EDTB21 *)
+__EDTB21 := (PROCESS_INDEX = IDX_CLEAN) ;
 ELSE
-__EDTB19 := FALSE ;
+__EDTB21 := FALSE ;
 END_IF ;
-__MO_GREATEQUAL_1 := __EDTB19 ;
-__EDTB21 := __EDTB19 ;
-IF __EDTB21 THEN
+__MO_EQUAL_6 := __EDTB21 ;
+CLEAN_BOWL := __EDTB21 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000A ;
+
+
+(*************** Rung **********************************)
+(*Initialize clean bowl*)
+__STEPPRAGMA
+0,36
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : CLEAN_BOWL with __MEMO__4__CLEAN_BOWL *)
+__EDTB23 := RUNNING AND (CLEAN_BOWL AND NOT(__MEMO__4__CLEAN_BOWL)) ;
+IF __EDTB23 THEN
+(*Reset coil*)
+BOWL_CLEAN := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000B ;
+__MEMO__4__CLEAN_BOWL := CLEAN_BOWL ; (*Pulse detection on : CLEAN_BOWL with __MEMO__4__CLEAN_BOWL *)
+
+
+(*************** Rung **********************************)
+(*End of Step 5 - Wait for cleaning to finish*)
+__STEPPRAGMA
+0,38
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB24 := RUNNING AND CLEAN_BOWL AND BOWL_CLEAN ;
+IF __EDTB24 THEN
+(*Set coil*)
+NEXT_STEP := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000C ;
+
+
+(*************** Rung **********************************)
+(*End process*)
+__STEPPRAGMA
+0,40
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB26 := RUNNING ;
+IF __EDTB26 THEN
+(* Operator output on : >= with __EDTB25 *)
+__EDTB25 := (PROCESS_INDEX >= IDX_RESET) ;
+ELSE
+__EDTB25 := FALSE ;
+END_IF ;
+__MO_GREATEQUAL_1 := __EDTB25 ;
+__EDTB27 := __EDTB25 ;
+IF __EDTB27 THEN
 PROCESS_INDEX := (  0) ;
 END_IF ;
-__MO_1GAIN_2 := __EDTB21 ;
-__EDTB22 := __EDTB21 ;
-IF __EDTB22 THEN
+__MO_1GAIN_2 := __EDTB27 ;
+__EDTB28 := __EDTB27 ;
+IF __EDTB28 THEN
 (*Reset coil*)
 RUNNING := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG000A ;
+__GL __LG000D ;
+
+
+(*************** Rung **********************************)
+(*Reset*)
+__STEPPRAGMA
+0,44
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB29 := _IO_EM_DI_27 ;
+IF __EDTB29 THEN
+DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_3 := __EDTB29 ;
+__EDTB30 := __EDTB29 ;
+IF __EDTB30 THEN
+PROCESS_INDEX := (  0) ;
+END_IF ;
+__MO_1GAIN_4 := __EDTB30 ;
+__EDTB31 := __EDTB30 ;
+IF __EDTB31 THEN
+(*Reset coil*)
+RUNNING := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000E ;
 
 
 (*************** Code for the end of File **************)
@@ -242,14 +330,24 @@ __GL __LG0000 ;
 (* __EDTB11 *)
 (* __EDTB12 *)
 (* __EDTB13 *)
+(* __MEMO__3__DISPENSE_SUGAR *)
 (* __EDTB14 *)
 (* __EDTB15 *)
 (* __EDTB16 *)
-(* __MEMO__3__CLEAN_BOWL *)
 (* __EDTB17 *)
 (* __EDTB18 *)
 (* __EDTB19 *)
 (* __EDTB20 *)
 (* __EDTB21 *)
 (* __EDTB22 *)
+(* __MEMO__4__CLEAN_BOWL *)
+(* __EDTB23 *)
+(* __EDTB24 *)
+(* __EDTB25 *)
+(* __EDTB26 *)
+(* __EDTB27 *)
+(* __EDTB28 *)
+(* __EDTB29 *)
+(* __EDTB30 *)
+(* __EDTB31 *)
 

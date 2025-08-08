@@ -3,60 +3,118 @@
 (****** ST *********************************************)
 
 (*************** Rung **********************************)
-(*Begin dispensing butter when signal received*)
+(*Initialize bowl weight*)
 __STEPPRAGMA
 0,1
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__1___IO_EM_DO_00 *)
-__EDTB1 := (_IO_EM_DO_00 AND NOT(__MEMO__1___IO_EM_DO_00)) ;
-__EDTB2 := DISPENSING_BUTTER ;
-DISPENSING_BUTTER := (__EDTB1 OR __EDTB2) ;
+__EDTB1 := __SYSVA_FIRST_SCAN ;
+IF __EDTB1 THEN
+DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_1 := __EDTB1 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Begin dispensing butter when signal received*)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__1___IO_EM_DO_00 *)
+__EDTB2 := (_IO_EM_DO_00 AND NOT(__MEMO__1___IO_EM_DO_00)) ;
+__EDTB3 := DISPENSING_BUTTER ;
+DISPENSING_BUTTER := (__EDTB2 OR __EDTB3) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
 __MEMO__1___IO_EM_DO_00 := _IO_EM_DO_00 ; (*Pulse detection on : _IO_EM_DO_00 with __MEMO__1___IO_EM_DO_00 *)
 
 
 (*************** Rung **********************************)
 (*Simulate butter dispensing - increase bowl weight after 2 seconds*)
 __STEPPRAGMA
-0,4
+0,7
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
 TON_7(DISPENSING_BUTTER, T#2S) ;
-__EDTB3 := TON_7.Q ;
-IF __EDTB3 THEN
+__EDTB4 := TON_7.Q ;
+IF __EDTB4 THEN
 DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + C_BUTTER_WEIGHT) ;
 END_IF ;
-__MO_PLUS_1 := __EDTB3 ;
-__EDTB4 := __EDTB3 ;
-IF __EDTB4 THEN
+__MO_PLUS_1 := __EDTB4 ;
+__EDTB5 := __EDTB4 ;
+IF __EDTB5 THEN
 (*Reset coil*)
 DISPENSING_BUTTER := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0002 ;
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*Simulate dispensing sugar*)
+__STEPPRAGMA
+0,11
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_3(_IO_EM_DO_01, T#500MS) ;
+SUGAR_TIMER := TON_3.ET ;
+__EDTB6 := TON_3.Q ;
+IF __EDTB6 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.1) ;
+END_IF ;
+__MO_PLUS_2 := __EDTB6 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+
+
+(*************** Rung **********************************)
+(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+__STEPPRAGMA
+0,15
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_4(DISPENSE_VANILLA_DROP, T#250MS) ;
+__EDTB7 := TON_4.Q ;
+IF __EDTB7 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
+END_IF ;
+__MO_PLUS_3 := __EDTB7 ;
+__EDTB8 := __EDTB7 ;
+IF __EDTB8 THEN
+(*Reset coil*)
+DISPENSE_VANILLA_DROP := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
 
 
 (*************** Rung **********************************)
 (*Simulate emptying bowl - set weight to bowl weight after 1s*)
 __STEPPRAGMA
-0,8
+0,19
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
 TON_1(_IO_EM_DO_09, T#1S) ;
-__EDTB5 := TON_1.Q ;
-IF __EDTB5 THEN
+__EDTB9 := TON_1.Q ;
+IF __EDTB9 THEN
 DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
 END_IF ;
-__MO_1GAIN_1 := __EDTB5 ;
+__MO_1GAIN_2 := __EDTB9 ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0003 ;
+__GL __LG0006 ;
 
 
 (*************** Code for the end of File **************)
@@ -65,10 +123,14 @@ __GL __LG0000 ;
 
 
 (*************** Local Symbols table *******************)
-(* __MEMO__1___IO_EM_DO_00 *)
 (* __EDTB1 *)
+(* __MEMO__1___IO_EM_DO_00 *)
 (* __EDTB2 *)
 (* __EDTB3 *)
 (* __EDTB4 *)
 (* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
 
