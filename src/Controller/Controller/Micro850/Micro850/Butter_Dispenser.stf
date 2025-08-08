@@ -3,7 +3,7 @@ PROGRAM Butter_Dispenser
 BOF
 
 
-(*Initialize*)
+(*Initialize to full stack*)
 
 SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Butter_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Butter_Count*) (**) )
 EOR [5,0]

@@ -3,70 +3,73 @@
 (****** ST *********************************************)
 
 (*************** Rung **********************************)
-(*Initialize dispense sugar*)
+(*Initialize to full tank*)
 __STEPPRAGMA
 0,1
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__1__DISPENSE_SUGAR *)
-__EDTB1 := (DISPENSE_SUGAR AND NOT(__MEMO__1__DISPENSE_SUGAR)) ;
+__EDTB1 := __SYSVA_FIRST_SCAN ;
 IF __EDTB1 THEN
+SUGAR_TANK := (  C_SUGAR_MAX) ;
+END_IF ;
+__MO_1GAIN_1 := __EDTB1 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Initialize dispense sugar*)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__1__DISPENSE_SUGAR *)
+__EDTB2 := (DISPENSE_SUGAR AND NOT(__MEMO__1__DISPENSE_SUGAR)) ;
+IF __EDTB2 THEN
 (*Set coil*)
 TARE := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0001 ;
+__GL __LG0002 ;
 __MEMO__1__DISPENSE_SUGAR := DISPENSE_SUGAR ; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__1__DISPENSE_SUGAR *)
 
 
 (*************** Rung **********************************)
 (*Wait for taring to dispense sugar*)
 __STEPPRAGMA
-0,3
+0,6
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 _IO_EM_DO_01 := DISPENSE_SUGAR AND NOT(TARE) ;
-
-(*************** Code for the end of Rung **************)
-__GL __LG0002 ;
-
-
-(*************** Rung **********************************)
-(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
-__STEPPRAGMA
-0,5
-__ENDSTEPPRAGMA
-(*Label :*)(**)
-(* FB call: TON *)
-TON_2(_IO_EM_DO_01 AND SUGAR_PULSE_STATE, T#125MS) ;
-__EDTB2 := TON_2.Q ;
-IF __EDTB2 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 25.0) ;
-END_IF ;
-__MO_PLUS_1 := __EDTB2 ;
-__EDTB3 := __EDTB2 ;
-IF __EDTB3 THEN
-(*Reset coil*)
-SUGAR_PULSE_STATE := FALSE ;
-END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0003 ;
 
 
 (*************** Rung **********************************)
-(*Sugar pulse low to high*)
+(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
 __STEPPRAGMA
-0,9
+0,8
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_3(NOT(SUGAR_PULSE_STATE), T#125MS) ;
-__EDTB4 := TON_3.Q ;
+TON_2(_IO_EM_DO_01 AND SUGAR_PULSE_STATE, T#125MS) ;
+__EDTB3 := TON_2.Q ;
+IF __EDTB3 THEN
+SUGAR_TANK := (SUGAR_TANK - 25.0) ;
+END_IF ;
+__MO_MINUS_1 := __EDTB3 ;
+__EDTB4 := __EDTB3 ;
 IF __EDTB4 THEN
-(*Set coil*)
-SUGAR_PULSE_STATE := TRUE ;
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 25.0) ;
+END_IF ;
+__MO_PLUS_1 := __EDTB4 ;
+__EDTB5 := __EDTB4 ;
+IF __EDTB5 THEN
+(*Reset coil*)
+SUGAR_PULSE_STATE := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -74,23 +77,17 @@ __GL __LG0004 ;
 
 
 (*************** Rung **********************************)
-(*Detect sugar dispensed by weight*)
+(*Sugar pulse low to high*)
 __STEPPRAGMA
 0,12
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB6 := DISPENSE_SUGAR AND NOT(TARE) ;
+(* FB call: TON *)
+TON_3(NOT(SUGAR_PULSE_STATE), T#125MS) ;
+__EDTB6 := TON_3.Q ;
 IF __EDTB6 THEN
-(* Operator output on : >= with __EDTB5 *)
-__EDTB5 := (RELATIVE_WEIGHT >= RECIPE_SUGAR) ;
-ELSE
-__EDTB5 := FALSE ;
-END_IF ;
-__MO_GREATEQUAL_1 := __EDTB5 ;
-__EDTB7 := __EDTB5 ;
-IF __EDTB7 THEN
 (*Set coil*)
-SUGAR_DISPENSED := TRUE ;
+SUGAR_PULSE_STATE := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -98,27 +95,91 @@ __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
-(*Low level warning*)
+(*Detect sugar dispensed by weight*)
 __STEPPRAGMA
-0,16
+0,15
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-WARN_SUGAR_LOW := _IO_EM_DI_04 ;
+__EDTB8 := DISPENSE_SUGAR AND NOT(TARE) ;
+IF __EDTB8 THEN
+(* Operator output on : >= with __EDTB7 *)
+__EDTB7 := (RELATIVE_WEIGHT >= RECIPE_SUGAR) ;
+ELSE
+__EDTB7 := FALSE ;
+END_IF ;
+__MO_GREATEQUAL_1 := __EDTB7 ;
+__EDTB9 := __EDTB7 ;
+IF __EDTB9 THEN
+(*Set coil*)
+SUGAR_DISPENSED := TRUE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
 
 
 (*************** Rung **********************************)
-(*Empty error*)
+(*Simulate low level photoelectric sensor*)
 __STEPPRAGMA
-0,18
+0,19
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-ERROR_SUGAR_EMPTY := _IO_EM_DI_05 ;
+__EDTB11 := TRUE ;
+IF __EDTB11 THEN
+(* Operator output on : <= with __EDTB10 *)
+__EDTB10 := (SUGAR_TANK <= C_SUGAR_LOW) ;
+ELSE
+__EDTB10 := FALSE ;
+END_IF ;
+__MO_LESSEQUAL_1 := __EDTB10 ;
+DI_SUGAR_LOW_PE := __EDTB10 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;
+
+
+(*************** Rung **********************************)
+(*Simulate empty level photoelectric sensor*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB13 := TRUE ;
+IF __EDTB13 THEN
+(* Operator output on : <= with __EDTB12 *)
+__EDTB12 := (SUGAR_TANK <= C_SUGAR_EMPTY) ;
+ELSE
+__EDTB12 := FALSE ;
+END_IF ;
+__MO_LESSEQUAL_2 := __EDTB12 ;
+DI_SUGAR_EMPTY_PE := __EDTB12 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Low level warning*)
+__STEPPRAGMA
+0,27
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+WARN_SUGAR_LOW := DI_SUGAR_LOW_PE ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
+
+
+(*************** Rung **********************************)
+(*Empty error*)
+__STEPPRAGMA
+0,29
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+ERROR_SUGAR_EMPTY := DI_SUGAR_EMPTY_PE ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000A ;
 
 
 (*************** Code for the end of File **************)
@@ -127,12 +188,18 @@ __GL __LG0000 ;
 
 
 (*************** Local Symbols table *******************)
-(* __MEMO__1__DISPENSE_SUGAR *)
 (* __EDTB1 *)
+(* __MEMO__1__DISPENSE_SUGAR *)
 (* __EDTB2 *)
 (* __EDTB3 *)
 (* __EDTB4 *)
 (* __EDTB5 *)
 (* __EDTB6 *)
 (* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
+(* __EDTB10 *)
+(* __EDTB11 *)
+(* __EDTB12 *)
+(* __EDTB13 *)
 
