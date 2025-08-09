@@ -1,0 +1,87 @@
+PROGRAM Egg_Dispenser
+#info= QLD
+BOF
+
+
+(*Initialize full egg carton*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Eggs_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Eggs*) (**) )
+EOR [5,0]
+
+
+(*Initialize dispense eggs*)
+
+SOR  [0,4] (**) (**)  XIP  [1,0] (*Dispense_Eggs*) (**)  FB  [2,0] (*1 gain*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Pulse_Out_Count*) (**) )
+EOR [5,0]
+
+
+(*Delay timer waiting for eggs to dispense*)
+
+SOR  [0,7] (**) (**)  XIC  [1,0] (*Dispense_Eggs*) (**)  FB  [2,0] (*TON*) (*TON_4*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*Egg_Dispense_Delay*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Eggs_Dispensed*) (**)
+EOR [6,0]
+
+
+(*Generate a pulse with a high per number of eggs needed, low to high*)
+
+SOR  [0,10] (**) (**)  XIC  [1,0] (*Dispense_Eggs*) (**)  XIO  [2,0] (*Egg_Pulse_State*) (**)  FB  [3,0] (*<*) (*12*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Pulse_Out_Count*) (**)  , (*i2:*)(*Recipe_Eggs*) (**) ; (*o1:*)(**) (**) )  FB  [6,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#250ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [9,0] (*+*) (*13*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Pulse_Out_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Pulse_Out_Count*) (**) )  OTS  [12,0] (*Egg_Pulse_State*) (**)
+EOR [13,0]
+
+
+(*Pulse high to low*)
+
+SOR  [0,14] (**) (**)  XIC  [1,0] (*Egg_Pulse_State*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#250ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTR  [5,0] (*Egg_Pulse_State*) (**)
+EOR [6,0]
+
+
+(*Reduce egg stock for every pulse sent*)
+
+SOR  [0,17] (**) (**)  XIP  [1,0] (*Egg_Pulse_State*) (**)  FB  [2,0] (*-*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Eggs*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Eggs*) (**) )
+EOR [5,0]
+
+
+(*Send pulse to dispenser*)
+
+SOR  [0,21] (**) (**)  XIC  [1,0] (*Egg_Pulse_State*) (**)  OTE  [2,0] (*_IO_EM_DO_03*) (*DO_Egg_Dispenser*)
+EOR [3,0]
+
+
+(*Count number of pulses received*)
+
+SOR  [0,23] (**) (**)  XIP  [1,0] (*_IO_EM_DO_03*) (*DO_Egg_Dispenser*)  FB  [2,0] (*+*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Pulse_In_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Pulse_In_Count*) (**) )
+EOR [5,0]
+
+
+(*Dispense egg if pulse count >0*)
+
+SOR  [0,27] (**) (**)  XIO  [1,0] (*Dispensing_Egg*) (**)  FB  [2,0] (*>=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Pulse_In_Count*) (**)  , (*i2:*)(*0*) (**) ; (*o1:*)(**) (**) )  FB  [5,0] (*-*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Pulse_In_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Pulse_In_Count*) (**) )  OTS  [8,0] (*Dispensing_Egg*) (**)
+EOR [9,0]
+
+
+(*Simulate dispensing egg over 2s*)
+
+SOR  [0,31] (**) (**)  XIC  [1,0] (*Dispensing_Egg*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*C_Egg_Dispense_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*C_Egg_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [8,0] (*Dispensing_Egg*) (**)
+EOR [9,0]
+
+
+(*Low eggs warning*)
+
+SOR  [0,35] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Eggs*) (**)  , (*i2:*)(*2*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*Warn_Eggs_Low*) (**)
+EOR [5,0]
+
+
+(*Empty eggs error*)
+
+SOR  [0,39] (**) (**)  FB  [1,0] (*=*) (*4*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Eggs*) (**)  , (*i2:*)(*0*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*Error_Eggs_Empty*) (**)
+EOR [5,0]
+
+
+(*Restock eggs to full*)
+
+SOR  [0,43] (**) (**)  XIC  [1,0] (*_IO_EM_DI_02*) (*DI_Restocked*)  FB  [2,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Eggs_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Eggs*) (**) )
+EOR [5,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=14
+#end_info
+END_PROGRAM

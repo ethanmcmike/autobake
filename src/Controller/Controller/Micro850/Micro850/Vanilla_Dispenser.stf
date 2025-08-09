@@ -3,38 +3,58 @@ PROGRAM Vanilla_Dispenser
 BOF
 
 
-(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+(*Initialize dispense - set drop count to 0*)
 
-SOR  [0,1] (**) (**)  XIC  [1,0] (*Dispense_Vanilla_Drop*) (**)  FB  [2,0] (*TON*) (*TON_4*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#250ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*0.05*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [8,0] (*Dispense_Vanilla_Drop*) (**)
-EOR [9,0]
+SOR  [0,1] (**) (**)  XIP  [1,0] (*Dispense_Vanilla*) (**)  FB  [2,0] (*1 gain*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Vanilla_Drops_Count*) (**) )
+EOR [5,0]
 
 
-(*Initialize dispense vanilla*)
+(*Send signal to dropper*)
 
-SOR  [0,5] (**) (**)  XIP  [1,0] (*_IO_EM_DO_02*) (*DO_Mixer*)  FB  [2,0] (*1 gain*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Vanilla_Count*) (**) )  OTR  [5,0] (*Vanilla_Dispensed*) (**)
+SOR  [0,4] (**) (**)  XIC  [1,0] (*Dispense_Vanilla*) (**)  OTE  [2,0] (*_IO_EM_DO_04*) (*DO_Vanilla_Dispenser*)
+EOR [3,0]
+
+
+(*Generate pulse with 3ms period*)
+
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Vanilla*) (**)  XIO  [2,0] (*Vanilla_Pulse_State*) (**)  FB  [3,0] (*TON*) (*TON_4*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#2ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [6,0] (*Vanilla_Pulse_State*) (**)
+EOR [7,0]
+
+
+(*Pulse high to low*)
+
+SOR  [0,9] (**) (**)  XIC  [1,0] (*Vanilla_Pulse_State*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTR  [5,0] (*Vanilla_Pulse_State*) (**)
 EOR [6,0]
 
 
-(*Simulate vanilla drop actuator output pulse*)
+(*Simulate dispensing drop on pulse high - increase bowl weight by 0.05g*)
 
-SOR  [0,8] (**) (**)  XIC  [1,0] (*DI_Vanilla_Drop*) (**)  FB  [2,0] (*TON*) (*TON_6*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#250ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTR  [5,0] (*DI_Vanilla_Drop*) (**)
-EOR [6,0]
+SOR  [0,12] (**) (**)  XIP  [1,0] (*Vanilla_Pulse_State*) (**)  FB  [2,0] (*+*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*0.05*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+EOR [5,0]
 
 
-(*Count number of vanilla drops dispensed based on actuator output signal*)
+(*Simulate dropper output signal with a high pulse for every drop dispensed*)
 
-SOR  [0,11] (**) (**)  XIC  [1,0] (*_IO_EM_DO_02*) (*DO_Mixer*)  XIP  [2,0] (*DI_Vanilla_Drop*) (**)  FB  [3,0] (*+*) (*12*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Vanilla_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Vanilla_Count*) (**) )
+SOR  [0,16] (**) (**)  XIC  [1,0] (*Vanilla_Pulse_State*) (**)  OTE  [2,0] (*DI_Vanilla_Drop*) (**)
+EOR [3,0]
+
+
+(*Count number of vanilla drops dispensed based on dropper output signal*)
+
+SOR  [0,18] (**) (**)  XIC  [1,0] (*Dispense_Vanilla*) (**)  XIP  [2,0] (*DI_Vanilla_Drop*) (**)  FB  [3,0] (*+*) (*12*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Vanilla_Drops_Count*) (**)  , (*i2:*)(*1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Vanilla_Drops_Count*) (**) )
 EOR [6,0]
 
 
 (*Stop dispensing vanilla when recipe drop count reached*)
 
-SOR  [0,15] (**) (**)  XIC  [1,0] (*_IO_EM_DO_02*) (*DO_Mixer*)  FB  [2,0] (*>=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Vanilla_Count*) (**)  , (*i2:*)(*Recipe_Vanilla*) (**) ; (*o1:*)(**) (**) )  
- BST  OTR  [5,0] (*_IO_EM_DO_02*) (*DO_Mixer*)
-   NXB  OTS  [5,1] (*Vanilla_Dispensed*) (**)
- BND
-
+SOR  [0,22] (**) (**)  XIC  [1,0] (*Dispense_Vanilla*) (**)  FB  [2,0] (*>=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Vanilla_Drops_Count*) (**)  , (*i2:*)(*Recipe_Vanilla*) (**) ; (*o1:*)(**) (**) )  OTE  [5,0] (*Vanilla_Dispensed*) (**)
 EOR [6,0]
+
+
+(**)
+
+SOR  [0,26] (**) (**)
+EOR [1,0]
 EOF
 #end_info
 END_PROGRAM

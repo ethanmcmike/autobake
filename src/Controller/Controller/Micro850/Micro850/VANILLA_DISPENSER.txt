@@ -3,63 +3,47 @@
 (****** ST *********************************************)
 
 (*************** Rung **********************************)
-(*Simulate dispensing vanilla drop - delay 0.25s, increase bowl weight, and output drop signal*)
+(*Initialize dispense - set drop count to 0*)
 __STEPPRAGMA
 0,1
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_4(DISPENSE_VANILLA_DROP, T#250MS) ;
-__EDTB1 := TON_4.Q ;
+; (*Pulse detection on : DISPENSE_VANILLA with __MEMO__1__DISPENSE_VANILLA *)
+__EDTB1 := (DISPENSE_VANILLA AND NOT(__MEMO__1__DISPENSE_VANILLA)) ;
 IF __EDTB1 THEN
-DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
+VANILLA_DROPS_COUNT := (  0) ;
 END_IF ;
-__MO_PLUS_1 := __EDTB1 ;
-__EDTB2 := __EDTB1 ;
-IF __EDTB2 THEN
-(*Reset coil*)
-DISPENSE_VANILLA_DROP := FALSE ;
-END_IF ;
+__MO_1GAIN_1 := __EDTB1 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0001 ;
+__MEMO__1__DISPENSE_VANILLA := DISPENSE_VANILLA ; (*Pulse detection on : DISPENSE_VANILLA with __MEMO__1__DISPENSE_VANILLA *)
 
 
 (*************** Rung **********************************)
-(*Initialize dispense vanilla*)
+(*Send signal to dropper*)
 __STEPPRAGMA
-0,5
+0,4
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__1___IO_EM_DO_02 *)
-__EDTB3 := (_IO_EM_DO_02 AND NOT(__MEMO__1___IO_EM_DO_02)) ;
-IF __EDTB3 THEN
-VANILLA_COUNT := (  0) ;
-END_IF ;
-__MO_1GAIN_1 := __EDTB3 ;
-__EDTB4 := __EDTB3 ;
-IF __EDTB4 THEN
-(*Reset coil*)
-VANILLA_DISPENSED := FALSE ;
-END_IF ;
+_IO_EM_DO_04 := DISPENSE_VANILLA ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0002 ;
-__MEMO__1___IO_EM_DO_02 := _IO_EM_DO_02 ; (*Pulse detection on : _IO_EM_DO_02 with __MEMO__1___IO_EM_DO_02 *)
 
 
 (*************** Rung **********************************)
-(*Simulate vanilla drop actuator output pulse*)
+(*Generate pulse with 3ms period*)
 __STEPPRAGMA
-0,8
+0,6
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_6(DI_VANILLA_DROP, T#250MS) ;
-__EDTB5 := TON_6.Q ;
-IF __EDTB5 THEN
-(*Reset coil*)
-DI_VANILLA_DROP := FALSE ;
+TON_4(DISPENSE_VANILLA AND NOT(VANILLA_PULSE_STATE), T#2MS) ;
+__EDTB2 := TON_4.Q ;
+IF __EDTB2 THEN
+(*Set coil*)
+VANILLA_PULSE_STATE := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -67,50 +51,100 @@ __GL __LG0003 ;
 
 
 (*************** Rung **********************************)
-(*Count number of vanilla drops dispensed based on actuator output signal*)
+(*Pulse high to low*)
 __STEPPRAGMA
-0,11
+0,9
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__2__DI_VANILLA_DROP *)
-__EDTB6 := _IO_EM_DO_02 AND (DI_VANILLA_DROP AND NOT(__MEMO__2__DI_VANILLA_DROP)) ;
-IF __EDTB6 THEN
-VANILLA_COUNT := (VANILLA_COUNT + 1) ;
+(* FB call: TON *)
+TON_1(VANILLA_PULSE_STATE, T#1MS) ;
+__EDTB3 := TON_1.Q ;
+IF __EDTB3 THEN
+(*Reset coil*)
+VANILLA_PULSE_STATE := FALSE ;
 END_IF ;
-__MO_PLUS_2 := __EDTB6 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0004 ;
-__MEMO__2__DI_VANILLA_DROP := DI_VANILLA_DROP ; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__2__DI_VANILLA_DROP *)
+
+
+(*************** Rung **********************************)
+(*Simulate dispensing drop on pulse high - increase bowl weight by 0.05g*)
+__STEPPRAGMA
+0,12
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : VANILLA_PULSE_STATE with __MEMO__2__VANILLA_PULSE_STATE *)
+__EDTB4 := (VANILLA_PULSE_STATE AND NOT(__MEMO__2__VANILLA_PULSE_STATE)) ;
+IF __EDTB4 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 0.05) ;
+END_IF ;
+__MO_PLUS_1 := __EDTB4 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
+__MEMO__2__VANILLA_PULSE_STATE := VANILLA_PULSE_STATE ; (*Pulse detection on : VANILLA_PULSE_STATE with __MEMO__2__VANILLA_PULSE_STATE *)
+
+
+(*************** Rung **********************************)
+(*Simulate dropper output signal with a high pulse for every drop dispensed*)
+__STEPPRAGMA
+0,16
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+DI_VANILLA_DROP := VANILLA_PULSE_STATE ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+
+
+(*************** Rung **********************************)
+(*Count number of vanilla drops dispensed based on dropper output signal*)
+__STEPPRAGMA
+0,18
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__3__DI_VANILLA_DROP *)
+__EDTB5 := DISPENSE_VANILLA AND (DI_VANILLA_DROP AND NOT(__MEMO__3__DI_VANILLA_DROP)) ;
+IF __EDTB5 THEN
+VANILLA_DROPS_COUNT := (VANILLA_DROPS_COUNT + 1) ;
+END_IF ;
+__MO_PLUS_2 := __EDTB5 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+__MEMO__3__DI_VANILLA_DROP := DI_VANILLA_DROP ; (*Pulse detection on : DI_VANILLA_DROP with __MEMO__3__DI_VANILLA_DROP *)
 
 
 (*************** Rung **********************************)
 (*Stop dispensing vanilla when recipe drop count reached*)
 __STEPPRAGMA
-0,15
+0,22
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB8 := _IO_EM_DO_02 ;
-IF __EDTB8 THEN
-(* Operator output on : >= with __EDTB7 *)
-__EDTB7 := (VANILLA_COUNT >= RECIPE_VANILLA) ;
+__EDTB7 := DISPENSE_VANILLA ;
+IF __EDTB7 THEN
+(* Operator output on : >= with __EDTB6 *)
+__EDTB6 := (VANILLA_DROPS_COUNT >= RECIPE_VANILLA) ;
 ELSE
-__EDTB7 := FALSE ;
+__EDTB6 := FALSE ;
 END_IF ;
-__MO_GREATEQUAL_1 := __EDTB7 ;
-__EDTB9 := __EDTB7 ;
-IF __EDTB9 THEN
-(*Reset coil*)
-_IO_EM_DO_02 := FALSE ;
-END_IF ;
-__EDTB10 := __EDTB7 ;
-IF __EDTB10 THEN
-(*Set coil*)
-VANILLA_DISPENSED := TRUE ;
-END_IF ;
+__MO_GREATEQUAL_1 := __EDTB6 ;
+VANILLA_DISPENSED := __EDTB6 ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0005 ;
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(**)
+__STEPPRAGMA
+0,26
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
 
 
 (*************** Code for the end of File **************)
@@ -119,16 +153,14 @@ __GL __LG0000 ;
 
 
 (*************** Local Symbols table *******************)
+(* __MEMO__1__DISPENSE_VANILLA *)
 (* __EDTB1 *)
 (* __EDTB2 *)
-(* __MEMO__1___IO_EM_DO_02 *)
 (* __EDTB3 *)
+(* __MEMO__2__VANILLA_PULSE_STATE *)
 (* __EDTB4 *)
+(* __MEMO__3__DI_VANILLA_DROP *)
 (* __EDTB5 *)
-(* __MEMO__2__DI_VANILLA_DROP *)
 (* __EDTB6 *)
 (* __EDTB7 *)
-(* __EDTB8 *)
-(* __EDTB9 *)
-(* __EDTB10 *)
 

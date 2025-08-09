@@ -3,9 +3,9 @@ PROGRAM Sugar_Dispenser
 BOF
 
 
-(*Initialize to full tank*)
+(**)
 
-SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Sugar_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Sugar_Tank*) (**) )
+SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*4*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Sugar_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Sugar*) (**) )
 EOR [5,0]
 
 
@@ -23,7 +23,7 @@ EOR [4,0]
 
 (*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
 
-SOR  [0,8] (**) (**)  XIC  [1,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)  XIC  [2,0] (*Sugar_Pulse_State*) (**)  FB  [3,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [6,0] (*-*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Sugar_Tank*) (**)  , (*i2:*)(*25.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Sugar_Tank*) (**) )  FB  [9,0] (*+*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*25.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [12,0] (*Sugar_Pulse_State*) (**)
+SOR  [0,8] (**) (**)  XIC  [1,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)  XIC  [2,0] (*Sugar_Pulse_State*) (**)  FB  [3,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [6,0] (*-*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Sugar*) (**)  , (*i2:*)(*25.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Sugar*) (**) )  FB  [9,0] (*+*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*25.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [12,0] (*Sugar_Pulse_State*) (**)
 EOR [13,0]
 
 
@@ -35,19 +35,19 @@ EOR [6,0]
 
 (*Detect sugar dispensed by weight*)
 
-SOR  [0,15] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  FB  [3,0] (*>=*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Relative_Weight*) (**)  , (*i2:*)(*Recipe_Sugar*) (**) ; (*o1:*)(**) (**) )  OTS  [6,0] (*Sugar_Dispensed*) (**)
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  FB  [3,0] (*>=*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Relative_Weight*) (**)  , (*i2:*)(*Recipe_Sugar*) (**) ; (*o1:*)(**) (**) )  OTE  [6,0] (*Sugar_Dispensed*) (**)
 EOR [7,0]
 
 
 (*Simulate low level photoelectric sensor*)
 
-SOR  [0,19] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Sugar_Tank*) (**)  , (*i2:*)(*C_Sugar_Low*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Sugar_Low_PE*) (**)
+SOR  [0,19] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Sugar*) (**)  , (*i2:*)(*C_Sugar_Low*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Sugar_Low_PE*) (**)
 EOR [5,0]
 
 
 (*Simulate empty level photoelectric sensor*)
 
-SOR  [0,23] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Sugar_Tank*) (**)  , (*i2:*)(*C_Sugar_Empty*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Sugar_Empty_PE*) (**)
+SOR  [0,23] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Sugar*) (**)  , (*i2:*)(*C_Sugar_Empty*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Sugar_Empty_PE*) (**)
 EOR [5,0]
 
 
@@ -65,11 +65,11 @@ EOR [3,0]
 
 (*Restock to max*)
 
-SOR  [0,31] (**) (**)  XIC  [1,0] (*_IO_EM_DI_02*) (*DI_Restocked*)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Sugar_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Sugar_Tank*) (**) )
+SOR  [0,31] (**) (**)  XIC  [1,0] (*_IO_EM_DI_02*) (*DI_Restocked*)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Sugar_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Sugar*) (**) )
 EOR [5,0]
 EOF
 #end_info
 #info= ID_MAX
-NextId=3
+NextId=4
 #end_info
 END_PROGRAM

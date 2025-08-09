@@ -1,15 +1,20 @@
 PROGRAM Constants
-// Simulation values
+//Simulation values
 C_Bowl_Weight := 750.0;		//g
 C_Butter_Weight := 115.0;	//g
+C_Egg_Weight := 57.0;		//g
+C_Egg_Dispense_Time := T#2s;
 
 // Process indices
 IDX_Butter := 1;
 IDX_Sugar := 2;
 IDX_Mix_1 := 3;
-IDX_Vanilla := 6;
-IDX_Clean := 4;
-IDX_Reset := 5;
+IDX_Eggs := 4;
+IDX_Vanilla := 5;
+IDX_Mix_2 := 10;
+IDX_Flour := 11;
+IDX_Clean := 6;
+IDX_End := 7;
 
 //Stock values
 C_Butter_Max := 8;

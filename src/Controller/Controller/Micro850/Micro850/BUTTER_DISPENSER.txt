@@ -3,14 +3,14 @@
 (****** ST *********************************************)
 
 (*************** Rung **********************************)
-(*Initialize*)
+(*Initialize to full stack*)
 __STEPPRAGMA
 0,1
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 __EDTB1 := __SYSVA_FIRST_SCAN ;
 IF __EDTB1 THEN
-BUTTER_COUNT := (  C_BUTTER_MAX) ;
+STOCK_BUTTER := (  C_BUTTER_MAX) ;
 END_IF ;
 __MO_1GAIN_1 := __EDTB1 ;
 
@@ -101,11 +101,7 @@ ELSE
 __EDTB7 := FALSE ;
 END_IF ;
 __MO_GREAT_1 := __EDTB7 ;
-__EDTB9 := __EDTB7 ;
-IF __EDTB9 THEN
-(*Set coil*)
-BUTTER_DISPENSED := TRUE ;
-END_IF ;
+BUTTER_DISPENSED := __EDTB7 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
@@ -118,11 +114,11 @@ __STEPPRAGMA
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 ; (*Pulse detection on : BUTTER_DISPENSED with __MEMO__3__BUTTER_DISPENSED *)
-__EDTB10 := (BUTTER_DISPENSED AND NOT(__MEMO__3__BUTTER_DISPENSED)) ;
-IF __EDTB10 THEN
-BUTTER_COUNT := (BUTTER_COUNT - 1) ;
+__EDTB9 := (BUTTER_DISPENSED AND NOT(__MEMO__3__BUTTER_DISPENSED)) ;
+IF __EDTB9 THEN
+STOCK_BUTTER := (STOCK_BUTTER - 1) ;
 END_IF ;
-__MO_MINUS_1 := __EDTB10 ;
+__MO_MINUS_1 := __EDTB9 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;
@@ -135,15 +131,15 @@ __STEPPRAGMA
 0,23
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB12 := TRUE ;
-IF __EDTB12 THEN
-(* Operator output on : <= with __EDTB11 *)
-__EDTB11 := (BUTTER_COUNT <= 1) ;
+__EDTB11 := TRUE ;
+IF __EDTB11 THEN
+(* Operator output on : <= with __EDTB10 *)
+__EDTB10 := (STOCK_BUTTER <= 1) ;
 ELSE
-__EDTB11 := FALSE ;
+__EDTB10 := FALSE ;
 END_IF ;
-__MO_LESSEQUAL_1 := __EDTB11 ;
-WARN_BUTTER_LOW := __EDTB11 ;
+__MO_LESSEQUAL_1 := __EDTB10 ;
+WARN_BUTTER_LOW := __EDTB10 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0008 ;
@@ -155,17 +151,17 @@ __STEPPRAGMA
 0,27
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB14 := TRUE ;
-IF __EDTB14 THEN
-(* Operator output on : = with __EDTB13 *)
-__EDTB13 := (BUTTER_COUNT = 0) ;
+__EDTB13 := TRUE ;
+IF __EDTB13 THEN
+(* Operator output on : = with __EDTB12 *)
+__EDTB12 := (STOCK_BUTTER = 0) ;
 ELSE
-__EDTB13 := FALSE ;
+__EDTB12 := FALSE ;
 END_IF ;
-__MO_EQUAL_1 := __EDTB13 ;
-__EDTB15 := __EDTB13 ;
-__EDTB16 := _IO_EM_DI_03 ;
-ERROR_BUTTER_EMPTY := (__EDTB15 OR __EDTB16) ;
+__MO_EQUAL_1 := __EDTB12 ;
+__EDTB14 := __EDTB12 ;
+__EDTB15 := _IO_EM_DI_03 ;
+ERROR_BUTTER_EMPTY := (__EDTB14 OR __EDTB15) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0009 ;
@@ -177,11 +173,11 @@ __STEPPRAGMA
 0,32
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB17 := _IO_EM_DI_02 ;
-IF __EDTB17 THEN
-BUTTER_COUNT := (  C_BUTTER_MAX) ;
+__EDTB16 := _IO_EM_DI_02 ;
+IF __EDTB16 THEN
+STOCK_BUTTER := (  C_BUTTER_MAX) ;
 END_IF ;
-__MO_1GAIN_2 := __EDTB17 ;
+__MO_1GAIN_2 := __EDTB16 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000A ;
@@ -203,8 +199,8 @@ __GL __LG0000 ;
 (* __EDTB6 *)
 (* __EDTB7 *)
 (* __EDTB8 *)
-(* __EDTB9 *)
 (* __MEMO__3__BUTTER_DISPENSED *)
+(* __EDTB9 *)
 (* __EDTB10 *)
 (* __EDTB11 *)
 (* __EDTB12 *)
@@ -212,5 +208,4 @@ __GL __LG0000 ;
 (* __EDTB14 *)
 (* __EDTB15 *)
 (* __EDTB16 *)
-(* __EDTB17 *)
 
