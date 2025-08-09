@@ -1,0 +1,30 @@
+PROGRAM Salt_Dispenser
+#info= QLD
+BOF
+
+
+(*Salt timer*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*Dispense_Salt*) (**)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#500ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Salt_Dispensed*) (**)
+EOR [6,0]
+
+
+(*Salt output*)
+
+SOR  [0,4] (**) (**)  XIC  [1,0] (*Dispense_Salt*) (**)  OTE  [2,0] (*_IO_EM_DO_06*) (*DO_Salt_Dispenser*)
+EOR [3,0]
+
+
+(*Soda timer*)
+
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Soda*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#500ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Soda_Dispensed*) (**)
+EOR [6,0]
+
+
+(*Soda output*)
+
+SOR  [0,9] (**) (**)  XIC  [1,0] (*Dispense_Soda*) (**)  OTE  [2,0] (*_IO_EM_DO_07*) (*DO_Soda_Dispenser*)
+EOR [3,0]
+EOF
+#end_info
+END_PROGRAM

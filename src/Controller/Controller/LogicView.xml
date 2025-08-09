@@ -47,6 +47,11 @@
       <SubRoutings />
     </ProgramItem>
     <ProgramItem>
+      <ProgramName>Program1_New_7</ProgramName>
+      <RoutingName>Salt_Dispenser</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
       <ProgramName>Program1_New_4</ProgramName>
       <RoutingName>Indicators</RoutingName>
       <SubRoutings />

@@ -13,8 +13,10 @@ IDX_Mix_1 := 3;
 IDX_Eggs_Vanilla := 4;
 IDX_Mix_2 := 5;
 IDX_Flour := 6;
-IDX_Clean := 7;
-IDX_End := 8;
+IDX_Salt_Soda := 7;
+IDX_Mix_3 := 8;
+IDX_Clean := 9;
+IDX_End := 10;
 
 //Stock values
 C_Butter_Max := 8;

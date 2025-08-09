@@ -6,6 +6,9 @@
   <AcfElementGuid Guid="47c9b7c8-5201-4658-8b3b-38a847498011">
     <File>Butter_Dispenser.AcfMlge</File>
   </AcfElementGuid>
+  <AcfElementGuid Guid="62d77380-a596-41a1-b7c2-95c9ee2c787b">
+    <File>Salt_Dispenser.AcfMlge</File>
+  </AcfElementGuid>
   <AcfElementGuid Guid="6a33c8d6-b665-465c-8cb7-84489e70f9b3">
     <File>Indicators.AcfMlge</File>
   </AcfElementGuid>

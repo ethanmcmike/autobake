@@ -1,0 +1,63 @@
+(****** QuickLD compiler *******************************)
+(****** Copyright Rockwell Automation Canada, Ltd ******)
+(****** ST *********************************************)
+
+(*************** Rung **********************************)
+(*Salt timer*)
+__STEPPRAGMA
+0,1
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(DISPENSE_SALT, T#500MS) ;
+SALT_DISPENSED := TON_2.Q ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Salt output*)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_06 := DISPENSE_SALT ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
+
+
+(*************** Rung **********************************)
+(*Soda timer*)
+__STEPPRAGMA
+0,6
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_1(DISPENSE_SODA, T#500MS) ;
+SODA_DISPENSED := TON_1.Q ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*Soda output*)
+__STEPPRAGMA
+0,9
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_07 := DISPENSE_SODA ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+
+
+(*************** Code for the end of File **************)
+__GL __LG0000 ;
+
+
+
+(*************** Local Symbols table *******************)
+
