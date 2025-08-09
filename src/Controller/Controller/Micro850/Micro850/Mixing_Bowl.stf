@@ -29,25 +29,31 @@ EOR [6,0]
 
 (*Roll dough balls*)
 
-SOR  [0,13] (**) (**)  XIC  [1,0] (*Roll*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Rolled*) (**)
+SOR  [0,13] (**) (**)  XIC  [1,0] (*Roll*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Rolling_Complete*) (**)
 EOR [6,0]
+
+
+(*Send signal to ball roller*)
+
+SOR  [0,16] (**) (**)  XIC  [1,0] (*Roll*) (**)  OTE  [2,0] (*_IO_EM_DO_08*) (*DO_Ball_Roller*)
+EOR [3,0]
 
 
 (*Clean bowl*)
 
-SOR  [0,16] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  OTE  [2,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)
+SOR  [0,18] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  OTE  [2,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)
 EOR [3,0]
 
 
 (*Clean bowl for 5s*)
 
-SOR  [0,18] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*C_Clean_Bowl_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Bowl_Clean*) (**)
+SOR  [0,20] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*C_Clean_Bowl_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Cleaning_Complete*) (**)
 EOR [6,0]
 
 
 (*Simulate emptying bowl - set weight to bowl weight after 1s*)
 
-SOR  [0,21] (**) (**)  XIC  [1,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
+SOR  [0,23] (**) (**)  XIC  [1,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
 EOR [8,0]
 EOF
 #end_info

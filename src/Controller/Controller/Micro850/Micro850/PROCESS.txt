@@ -255,7 +255,7 @@ __EDTB37 := FALSE ;
 END_IF ;
 __MO_EQUAL_9 := __EDTB37 ;
 ROLL := __EDTB37 ;
-__EDTB39 := __EDTB37 AND ROLLED ;
+__EDTB39 := __EDTB37 AND ROLLING_COMPLETE ;
 IF __EDTB39 THEN
 (*Set coil*)
 NEXT_STEP := TRUE ;
@@ -266,48 +266,42 @@ __GL __LG0009 ;
 
 
 (*************** Rung **********************************)
-(*Bake, clean*)
+(*Clean*)
 __STEPPRAGMA
 0,42
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 __EDTB41 := RUNNING ;
 IF __EDTB41 THEN
-(* Operator output on : = with __EDTB40 *)
-__EDTB40 := (PROCESS_INDEX = IDX_BAKE) ;
+(* Operator output on : > with __EDTB40 *)
+__EDTB40 := (PROCESS_INDEX > IDX_ROLL) ;
 ELSE
 __EDTB40 := FALSE ;
 END_IF ;
-__MO_EQUAL_10 := __EDTB40 ;
-BAKE := __EDTB40 ;
-CLEAN_BOWL := __EDTB40 ;
-__EDTB42 := __EDTB40 AND BAKING_COMPLETE ;
-IF __EDTB42 THEN
-(*Set coil*)
-NEXT_STEP := TRUE ;
-END_IF ;
+__MO_GREAT_1 := __EDTB40 ;
+CLEAN_BOWL := __EDTB40 AND NOT(CLEANING_COMPLETE) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000A ;
 
 
 (*************** Rung **********************************)
-(*Present*)
+(*Bake*)
 __STEPPRAGMA
 0,46
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB44 := RUNNING ;
-IF __EDTB44 THEN
-(* Operator output on : = with __EDTB43 *)
-__EDTB43 := (PROCESS_INDEX = IDX_PRESENT) ;
+__EDTB43 := RUNNING ;
+IF __EDTB43 THEN
+(* Operator output on : = with __EDTB42 *)
+__EDTB42 := (PROCESS_INDEX = IDX_BAKE) ;
 ELSE
-__EDTB43 := FALSE ;
+__EDTB42 := FALSE ;
 END_IF ;
-__MO_EQUAL_11 := __EDTB43 ;
-PRESENT := __EDTB43 ;
-__EDTB45 := __EDTB43 AND PRESENTING_COMPLETE ;
-IF __EDTB45 THEN
+__MO_EQUAL_10 := __EDTB42 ;
+BAKE := __EDTB42 ;
+__EDTB44 := __EDTB42 AND BAKING_COMPLETE ;
+IF __EDTB44 THEN
 (*Set coil*)
 NEXT_STEP := TRUE ;
 END_IF ;
@@ -317,28 +311,24 @@ __GL __LG000B ;
 
 
 (*************** Rung **********************************)
-(*End process once bowl is clean*)
+(*Present*)
 __STEPPRAGMA
 0,50
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB47 := RUNNING ;
-IF __EDTB47 THEN
-(* Operator output on : >= with __EDTB46 *)
-__EDTB46 := (PROCESS_INDEX >= IDX_END) ;
+__EDTB46 := RUNNING ;
+IF __EDTB46 THEN
+(* Operator output on : = with __EDTB45 *)
+__EDTB45 := (PROCESS_INDEX = IDX_PRESENT) ;
 ELSE
-__EDTB46 := FALSE ;
+__EDTB45 := FALSE ;
 END_IF ;
-__MO_GREATEQUAL_1 := __EDTB46 ;
-__EDTB48 := __EDTB46 AND BOWL_CLEAN ;
-IF __EDTB48 THEN
-PROCESS_INDEX := (  0) ;
-END_IF ;
-__MO_1GAIN_5 := __EDTB48 ;
-__EDTB49 := __EDTB48 ;
-IF __EDTB49 THEN
-(*Reset coil*)
-RUNNING := FALSE ;
+__MO_EQUAL_11 := __EDTB45 ;
+PRESENT := __EDTB45 ;
+__EDTB47 := __EDTB45 AND PRESENTING_COMPLETE ;
+IF __EDTB47 THEN
+(*Set coil*)
+NEXT_STEP := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -346,29 +336,58 @@ __GL __LG000C ;
 
 
 (*************** Rung **********************************)
-(*Reset*)
+(*End process once cleaning is finished*)
 __STEPPRAGMA
 0,54
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB50 := _IO_EM_DI_27 ;
-IF __EDTB50 THEN
-DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+__EDTB49 := RUNNING ;
+IF __EDTB49 THEN
+(* Operator output on : >= with __EDTB48 *)
+__EDTB48 := (PROCESS_INDEX >= IDX_END) ;
+ELSE
+__EDTB48 := FALSE ;
 END_IF ;
-__MO_1GAIN_6 := __EDTB50 ;
-__EDTB51 := __EDTB50 ;
-IF __EDTB51 THEN
+__MO_GREATEQUAL_1 := __EDTB48 ;
+__EDTB50 := __EDTB48 AND NOT(CLEAN_BOWL) ;
+IF __EDTB50 THEN
 PROCESS_INDEX := (  0) ;
 END_IF ;
-__MO_1GAIN_7 := __EDTB51 ;
-__EDTB52 := __EDTB51 ;
-IF __EDTB52 THEN
+__MO_1GAIN_5 := __EDTB50 ;
+__EDTB51 := __EDTB50 ;
+IF __EDTB51 THEN
 (*Reset coil*)
 RUNNING := FALSE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000D ;
+
+
+(*************** Rung **********************************)
+(*Reset*)
+__STEPPRAGMA
+0,58
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB52 := _IO_EM_DI_27 ;
+IF __EDTB52 THEN
+DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_6 := __EDTB52 ;
+__EDTB53 := __EDTB52 ;
+IF __EDTB53 THEN
+PROCESS_INDEX := (  0) ;
+END_IF ;
+__MO_1GAIN_7 := __EDTB53 ;
+__EDTB54 := __EDTB53 ;
+IF __EDTB54 THEN
+(*Reset coil*)
+RUNNING := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000E ;
 
 
 (*************** Code for the end of File **************)
@@ -430,4 +449,6 @@ __GL __LG0000 ;
 (* __EDTB50 *)
 (* __EDTB51 *)
 (* __EDTB52 *)
+(* __EDTB53 *)
+(* __EDTB54 *)
 

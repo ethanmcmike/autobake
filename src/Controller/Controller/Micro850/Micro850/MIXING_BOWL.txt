@@ -78,42 +78,54 @@ __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
 TON_3(ROLL, T#5S) ;
-ROLLED := TON_3.Q ;
+ROLLING_COMPLETE := TON_3.Q ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl*)
+(*Send signal to ball roller*)
 __STEPPRAGMA
 0,16
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_09 := CLEAN_BOWL ;
+_IO_EM_DO_08 := ROLL ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl for 5s*)
+(*Clean bowl*)
 __STEPPRAGMA
 0,18
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_1(CLEAN_BOWL, C_CLEAN_BOWL_TIME) ;
-BOWL_CLEAN := TON_1.Q ;
+_IO_EM_DO_09 := CLEAN_BOWL ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;
 
 
 (*************** Rung **********************************)
+(*Clean bowl for 5s*)
+__STEPPRAGMA
+0,20
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_1(CLEAN_BOWL, C_CLEAN_BOWL_TIME) ;
+CLEANING_COMPLETE := TON_1.Q ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
 (*Simulate emptying bowl - set weight to bowl weight after 1s*)
 __STEPPRAGMA
-0,21
+0,23
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
@@ -125,7 +137,7 @@ END_IF ;
 __MO_1GAIN_3 := __EDTB5 ;
 
 (*************** Code for the end of Rung **************)
-__GL __LG0008 ;
+__GL __LG0009 ;
 
 
 (*************** Code for the end of File **************)
