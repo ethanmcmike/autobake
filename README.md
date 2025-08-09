@@ -3,10 +3,14 @@ This is a PLC project with multiple ladder logic, structured text, and function 
 
 The system is an imaginary cookie vending machine that automatically produces cookies from scratch when the user presses a button. All the ingredients are assumed to be stored properly at an appropriate temperature and can be dispensed with machines into a large mixing bowl. The mechanical systems and actuators are not simulated and are assumed to function properly. This project is only modelling the control system.
 
-Software
+Software:
  - Connected Components Workbench (Allen Bradley)
+
 Hardware:
  - Allen Bradley Micro800 Simulator
+
+# Documentation
+View the ladder logic programs and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
 
 # I/O
 Input Signals:
@@ -75,6 +79,3 @@ The user will be able to define ingredient quantities to adjust the recipe as de
 10. Transfer tray to oven and bake
 11. Start bowl cleaning
 12. Present tray to user
-
-# Documentation
-View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
