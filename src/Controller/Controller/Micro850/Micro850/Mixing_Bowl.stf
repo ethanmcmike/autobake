@@ -23,7 +23,7 @@ EOR [3,0]
 
 (*Mix timer*)
 
-SOR  [0,10] (**) (**)  XIC  [1,0] (*Mix*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Mix_Complete*) (**)
+SOR  [0,10] (**) (**)  XIC  [1,0] (*Mix*) (**)  FB  [2,0] (*TON*) (*TON_4*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*Mix_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Mix_Complete*) (**)
 EOR [6,0]
 
 
@@ -35,7 +35,7 @@ EOR [3,0]
 
 (*Clean bowl for 5s*)
 
-SOR  [0,15] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#5s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*Bowl_Clean*) (**)
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*C_Clean_Bowl_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Bowl_Clean*) (**)
 EOR [6,0]
 
 
