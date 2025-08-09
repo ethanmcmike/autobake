@@ -5,20 +5,84 @@ BOF
 
 (*Open door*)
 
-SOR  [0,1] (**) (**)  XIC  [1,0] (*Present*) (**)
-EOR [2,0]
+SOR  [0,1] (**) (**)  
+ BST  XIC  [1,0] (*Present*) (**)  XIO  [2,0] (*Pushing*) (**)  XIO  [3,0] (*Closing_Door*) (**)  XIO  [4,0] (*Presenting_Complete*) (**)
+   NXB  XIC  [1,1] (*Opening_Door*) (**)  XIO  [2,1] (*Pushing*) (**)
+ BND
+  OTE  [5,0] (*Opening_Door*) (**)
+EOR [6,0]
 
 
 (*Push cookies out*)
 
-SOR  [0,3] (**) (**)
-EOR [1,0]
+SOR  [0,4] (**) (**)  
+ BST  XIC  [1,0] (*Opening_Door*) (**)  XIO  [2,0] (*Pushing*) (**)  XIO  [3,0] (*Closing_Door*) (**)  XIO  [4,0] (*Presenting_Complete*) (**)  XIC  [5,0] (*DI_Door_Open*) (**)
+   NXB  XIC  [1,1] (*Pushing*) (**)  XIO  [2,1] (*Closing_Door*) (**)
+ BND
+  OTE  [6,0] (*Pushing*) (**)
+EOR [7,0]
 
 
 (*Close door*)
 
-SOR  [0,4] (**) (**)
-EOR [1,0]
+SOR  [0,7] (**) (**)  
+ BST  XIC  [1,0] (*Pushing*) (**)  XIO  [2,0] (*Opening_Door*) (**)  XIO  [3,0] (*Presenting_Complete*) (**)  XIO  [4,0] (*DI_Piston_Extended*) (**)
+   NXB  XIC  [1,1] (*Closing_Door*) (**)  XIO  [2,1] (*Presenting_Complete*) (**)
+ BND
+  XIO  [5,0] (*DI_Piston_Extended*) (**)  OTE  [6,0] (*Closing_Door*) (**)
+EOR [7,0]
+
+
+(*Complete presentation*)
+
+SOR  [0,10] (**) (**)  
+ BST  XIC  [1,0] (*Closing_Door*) (**)  XIO  [2,0] (*Opening_Door*) (**)  XIO  [3,0] (*Pushing*) (**)  XIO  [4,0] (*DI_Door_Open*) (**)
+   NXB  XIC  [1,1] (*Presenting_Complete*) (**)  XIC  [2,1] (*Present*) (**)
+ BND
+  OTE  [5,0] (*Presenting_Complete*) (**)
+EOR [6,0]
+
+
+(*Open door output*)
+
+SOR  [0,13] (**) (**)  XIC  [1,0] (*Present*) (**)  XIP  [2,0] (*Opening_Door*) (**)  OTS  [3,0] (*_IO_EM_DO_13*) (*DO_Door*)
+EOR [4,0]
+
+
+(*Piston output*)
+
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Present*) (**)  XIP  [2,0] (*Pushing*) (**)  FB  [3,0] (*TOF*) (*TOF_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [6,0] (*_IO_EM_DO_14*) (*DO_Piston*)
+EOR [7,0]
+
+
+(*Close door output*)
+
+SOR  [0,18] (**) (**)  XIC  [1,0] (*Present*) (**)  XIP  [2,0] (*Closing_Door*) (**)  OTR  [3,0] (*_IO_EM_DO_13*) (*DO_Door*)
+EOR [4,0]
+
+
+(*Simulate door opening*)
+
+SOR  [0,20] (**) (**)  XIO  [1,0] (*DI_Door_Open*) (**)  XIC  [2,0] (*_IO_EM_DO_13*) (*DO_Door*)  FB  [3,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [6,0] (*DI_Door_Open*) (**)
+EOR [7,0]
+
+
+(*Simulate door closing*)
+
+SOR  [0,23] (**) (**)  XIC  [1,0] (*DI_Door_Open*) (**)  XIO  [2,0] (*_IO_EM_DO_13*) (*DO_Door*)  FB  [3,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#1s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTR  [6,0] (*DI_Door_Open*) (**)
+EOR [7,0]
+
+
+(*Simulate piston extending*)
+
+SOR  [0,26] (**) (**)  XIP  [1,0] (*_IO_EM_DO_14*) (*DO_Piston*)  OTS  [2,0] (*DI_Piston_Extended*) (**)
+EOR [3,0]
+
+
+(*Simulate piston retracting*)
+
+SOR  [0,28] (**) (**)  XIC  [1,0] (*DI_Piston_Extended*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#3s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTR  [5,0] (*DI_Piston_Extended*) (**)
+EOR [6,0]
 EOF
 #end_info
 END_PROGRAM

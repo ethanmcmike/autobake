@@ -1,0 +1,209 @@
+(****** QuickLD compiler *******************************)
+(****** Copyright Rockwell Automation Canada, Ltd ******)
+(****** ST *********************************************)
+
+(*************** Rung **********************************)
+(*Open door*)
+__STEPPRAGMA
+0,1
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB1 := PRESENT AND NOT(PUSHING) AND NOT(CLOSING_DOOR) AND NOT(PRESENTING_COMPLETE) ;
+__EDTB2 := OPENING_DOOR AND NOT(PUSHING) ;
+OPENING_DOOR := (__EDTB1 OR __EDTB2) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Push cookies out*)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB3 := OPENING_DOOR AND NOT(PUSHING) AND NOT(CLOSING_DOOR) AND NOT(PRESENTING_COMPLETE) AND DI_DOOR_OPEN ;
+__EDTB4 := PUSHING AND NOT(CLOSING_DOOR) ;
+PUSHING := (__EDTB3 OR __EDTB4) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
+
+
+(*************** Rung **********************************)
+(*Close door*)
+__STEPPRAGMA
+0,7
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB5 := PUSHING AND NOT(OPENING_DOOR) AND NOT(PRESENTING_COMPLETE) AND NOT(DI_PISTON_EXTENDED) ;
+__EDTB6 := CLOSING_DOOR AND NOT(PRESENTING_COMPLETE) ;
+CLOSING_DOOR := (__EDTB5 OR __EDTB6) AND NOT(DI_PISTON_EXTENDED) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*Complete presentation*)
+__STEPPRAGMA
+0,10
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB7 := CLOSING_DOOR AND NOT(OPENING_DOOR) AND NOT(PUSHING) AND NOT(DI_DOOR_OPEN) ;
+__EDTB8 := PRESENTING_COMPLETE AND PRESENT ;
+PRESENTING_COMPLETE := (__EDTB7 OR __EDTB8) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+
+
+(*************** Rung **********************************)
+(*Open door output*)
+__STEPPRAGMA
+0,13
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : OPENING_DOOR with __MEMO__1__OPENING_DOOR *)
+__EDTB9 := PRESENT AND (OPENING_DOOR AND NOT(__MEMO__1__OPENING_DOOR)) ;
+IF __EDTB9 THEN
+(*Set coil*)
+_IO_EM_DO_13 := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
+__MEMO__1__OPENING_DOOR := OPENING_DOOR ; (*Pulse detection on : OPENING_DOOR with __MEMO__1__OPENING_DOOR *)
+
+
+(*************** Rung **********************************)
+(*Piston output*)
+__STEPPRAGMA
+0,15
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : PUSHING with __MEMO__2__PUSHING *)
+(* FB call: TOF *)
+TOF_1(PRESENT AND (PUSHING AND NOT(__MEMO__2__PUSHING)), T#1S) ;
+_IO_EM_DO_14 := TOF_1.Q ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+__MEMO__2__PUSHING := PUSHING ; (*Pulse detection on : PUSHING with __MEMO__2__PUSHING *)
+
+
+(*************** Rung **********************************)
+(*Close door output*)
+__STEPPRAGMA
+0,18
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : CLOSING_DOOR with __MEMO__3__CLOSING_DOOR *)
+__EDTB10 := PRESENT AND (CLOSING_DOOR AND NOT(__MEMO__3__CLOSING_DOOR)) ;
+IF __EDTB10 THEN
+(*Reset coil*)
+_IO_EM_DO_13 := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+__MEMO__3__CLOSING_DOOR := CLOSING_DOOR ; (*Pulse detection on : CLOSING_DOOR with __MEMO__3__CLOSING_DOOR *)
+
+
+(*************** Rung **********************************)
+(*Simulate door opening*)
+__STEPPRAGMA
+0,20
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(NOT(DI_DOOR_OPEN) AND _IO_EM_DO_13, T#1S) ;
+__EDTB11 := TON_2.Q ;
+IF __EDTB11 THEN
+(*Set coil*)
+DI_DOOR_OPEN := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Simulate door closing*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_3(DI_DOOR_OPEN AND NOT(_IO_EM_DO_13), T#1S) ;
+__EDTB12 := TON_3.Q ;
+IF __EDTB12 THEN
+(*Reset coil*)
+DI_DOOR_OPEN := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
+
+
+(*************** Rung **********************************)
+(*Simulate piston extending*)
+__STEPPRAGMA
+0,26
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : _IO_EM_DO_14 with __MEMO__4___IO_EM_DO_14 *)
+__EDTB13 := (_IO_EM_DO_14 AND NOT(__MEMO__4___IO_EM_DO_14)) ;
+IF __EDTB13 THEN
+(*Set coil*)
+DI_PISTON_EXTENDED := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000A ;
+__MEMO__4___IO_EM_DO_14 := _IO_EM_DO_14 ; (*Pulse detection on : _IO_EM_DO_14 with __MEMO__4___IO_EM_DO_14 *)
+
+
+(*************** Rung **********************************)
+(*Simulate piston retracting*)
+__STEPPRAGMA
+0,28
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_1(DI_PISTON_EXTENDED, T#3S) ;
+__EDTB14 := TON_1.Q ;
+IF __EDTB14 THEN
+(*Reset coil*)
+DI_PISTON_EXTENDED := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000B ;
+
+
+(*************** Code for the end of File **************)
+__GL __LG0000 ;
+
+
+
+(*************** Local Symbols table *******************)
+(* __EDTB1 *)
+(* __EDTB2 *)
+(* __EDTB3 *)
+(* __EDTB4 *)
+(* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __MEMO__1__OPENING_DOOR *)
+(* __EDTB9 *)
+(* __MEMO__2__PUSHING *)
+(* __MEMO__3__CLOSING_DOOR *)
+(* __EDTB10 *)
+(* __EDTB11 *)
+(* __EDTB12 *)
+(* __MEMO__4___IO_EM_DO_14 *)
+(* __EDTB13 *)
+(* __EDTB14 *)
+

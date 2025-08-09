@@ -292,28 +292,24 @@ __GL __LG000A ;
 
 
 (*************** Rung **********************************)
-(*End process once bowl is clean*)
+(*Present*)
 __STEPPRAGMA
 0,46
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 __EDTB44 := RUNNING ;
 IF __EDTB44 THEN
-(* Operator output on : >= with __EDTB43 *)
-__EDTB43 := (PROCESS_INDEX >= IDX_END) ;
+(* Operator output on : = with __EDTB43 *)
+__EDTB43 := (PROCESS_INDEX = IDX_PRESENT) ;
 ELSE
 __EDTB43 := FALSE ;
 END_IF ;
-__MO_GREATEQUAL_1 := __EDTB43 ;
-__EDTB45 := __EDTB43 AND BOWL_CLEAN ;
+__MO_EQUAL_11 := __EDTB43 ;
+PRESENT := __EDTB43 ;
+__EDTB45 := __EDTB43 AND PRESENTING_COMPLETE ;
 IF __EDTB45 THEN
-PROCESS_INDEX := (  0) ;
-END_IF ;
-__MO_1GAIN_5 := __EDTB45 ;
-__EDTB46 := __EDTB45 ;
-IF __EDTB46 THEN
-(*Reset coil*)
-RUNNING := FALSE ;
+(*Set coil*)
+NEXT_STEP := TRUE ;
 END_IF ;
 
 (*************** Code for the end of Rung **************)
@@ -321,21 +317,24 @@ __GL __LG000B ;
 
 
 (*************** Rung **********************************)
-(*Reset*)
+(*End process once bowl is clean*)
 __STEPPRAGMA
 0,50
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB47 := _IO_EM_DI_27 ;
+__EDTB47 := RUNNING ;
 IF __EDTB47 THEN
-DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+(* Operator output on : >= with __EDTB46 *)
+__EDTB46 := (PROCESS_INDEX >= IDX_END) ;
+ELSE
+__EDTB46 := FALSE ;
 END_IF ;
-__MO_1GAIN_6 := __EDTB47 ;
-__EDTB48 := __EDTB47 ;
+__MO_GREATEQUAL_1 := __EDTB46 ;
+__EDTB48 := __EDTB46 AND BOWL_CLEAN ;
 IF __EDTB48 THEN
 PROCESS_INDEX := (  0) ;
 END_IF ;
-__MO_1GAIN_7 := __EDTB48 ;
+__MO_1GAIN_5 := __EDTB48 ;
 __EDTB49 := __EDTB48 ;
 IF __EDTB49 THEN
 (*Reset coil*)
@@ -344,6 +343,32 @@ END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG000C ;
+
+
+(*************** Rung **********************************)
+(*Reset*)
+__STEPPRAGMA
+0,54
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB50 := _IO_EM_DI_27 ;
+IF __EDTB50 THEN
+DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+END_IF ;
+__MO_1GAIN_6 := __EDTB50 ;
+__EDTB51 := __EDTB50 ;
+IF __EDTB51 THEN
+PROCESS_INDEX := (  0) ;
+END_IF ;
+__MO_1GAIN_7 := __EDTB51 ;
+__EDTB52 := __EDTB51 ;
+IF __EDTB52 THEN
+(*Reset coil*)
+RUNNING := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000D ;
 
 
 (*************** Code for the end of File **************)
@@ -402,4 +427,7 @@ __GL __LG0000 ;
 (* __EDTB47 *)
 (* __EDTB48 *)
 (* __EDTB49 *)
+(* __EDTB50 *)
+(* __EDTB51 *)
+(* __EDTB52 *)
 
