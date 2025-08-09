@@ -1,7 +1,12 @@
 # About
-This is a test project to learn ladder logic, PLC, and HMI using Allen Bradley's Connected Components Workbench and a Micro850 simulator along with FactoryTalk.
+This is a PLC project with multiple ladder logic, structured text, and function block diagram programs that includes indexed sequences, latched sequences, timers, and pulse generators.
 
 The system is an imaginary cookie vending machine that automatically produces cookies from scratch when the user presses a button. All the ingredients are assumed to be stored properly at an appropriate temperature and can be dispensed with machines into a large mixing bowl. The mechanical systems and actuators are not simulated and are assumed to function properly. This project is only modelling the control system.
+
+Software
+ - Connected Components Workbench (Allen Bradley)
+Hardware:
+ - Allen Bradley Micro800 Simulator
 
 # I/O
 Input Signals:
