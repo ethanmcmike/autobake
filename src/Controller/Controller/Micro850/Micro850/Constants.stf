@@ -4,19 +4,21 @@ C_Bowl_Weight := 750.0;		//g
 C_Butter_Weight := 115.0;	//g
 C_Egg_Weight := 57.0;		//g
 C_Egg_Dispense_Time := T#2s;
-C_Clean_Bowl_Time := T#5s;
+C_Clean_Bowl_Time := T#30s;
 
 // Process indices
-IDX_Butter := 1;
-IDX_Sugar := 2;
-IDX_Mix_1 := 3;
-IDX_Eggs_Vanilla := 4;
-IDX_Mix_2 := 5;
-IDX_Flour := 6;
-IDX_Salt_Soda := 7;
-IDX_Mix_3 := 8;
-IDX_Clean := 9;
-IDX_End := 10;
+IDX_Butter := 100;
+IDX_Sugar := 20;
+IDX_Mix_1 := 30;
+IDX_Eggs_Vanilla := 40;
+IDX_Mix_2 := 50;
+IDX_Flour := 60;
+IDX_Salt_Soda := 70;
+IDX_Mix_3 := 80;
+IDX_Roll := 90;
+IDX_Bake := 1;
+IDX_Present := 2;
+IDX_End := 3;
 
 //Stock values
 C_Butter_Max := 8;

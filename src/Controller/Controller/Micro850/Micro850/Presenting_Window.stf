@@ -1,0 +1,24 @@
+PROGRAM Presenting_Window
+#info= QLD
+BOF
+
+
+(*Open door*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*Present*) (**)
+EOR [2,0]
+
+
+(*Push cookies out*)
+
+SOR  [0,3] (**) (**)
+EOR [1,0]
+
+
+(*Close door*)
+
+SOR  [0,4] (**) (**)
+EOR [1,0]
+EOF
+#end_info
+END_PROGRAM

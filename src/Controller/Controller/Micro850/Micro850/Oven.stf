@@ -1,0 +1,72 @@
+PROGRAM Oven
+#info= QLD
+BOF
+
+
+(*Move tray into oven on conveyor*)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*Bake*) (**)  XIO  [2,0] (*Cooking*) (**)  XIO  [3,0] (*Cooling*) (**)  XIO  [4,0] (*Baking_Complete*) (**)  XIO  [5,0] (*DI_Conveyor_Oven_PE*) (**)  OTE  [6,0] (*_IO_EM_DO_10*) (*DO_Conveyor_Fwd*)
+EOR [7,0]
+
+
+(*Cook*)
+
+SOR  [0,3] (**) (**)  
+ BST  XIC  [1,0] (*Bake*) (**)  XIC  [2,0] (*DI_Conveyor_Oven_PE*) (**)  XIO  [3,0] (*Cooking*) (**)  XIO  [4,0] (*Cooling*) (**)  XIO  [5,0] (*Baking_Complete*) (**)
+   NXB  XIC  [1,1] (*Cooking*) (**)
+ BND
+  XIO  [6,0] (*Cooling*) (**)  
+ BST  OTE  [7,0] (*Cooking*) (**)
+   NXB  OTE  [7,1] (*_IO_EM_DO_12*) (*DO_Oven*)
+ BND
+
+EOR [8,0]
+
+
+(*Cool*)
+
+SOR  [0,6] (**) (**)  
+ BST  XIC  [1,0] (*Cooking*) (**)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*Recipe_Cook_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )
+   NXB  XIC  [1,2] (*Cooling*) (**)
+ BND
+  XIO  [5,0] (*Baking_Complete*) (**)  OTE  [6,0] (*Cooling*) (**)
+EOR [7,0]
+
+
+(*End of cooling*)
+
+SOR  [0,10] (**) (**)  XIC  [1,0] (*Cooling*) (**)  FB  [2,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*Recipe_Cool_Time*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTE  [5,0] (*Baking_Complete*) (**)
+EOR [6,0]
+
+
+(*Move tray out of oven on conveyor*)
+
+SOR  [0,13] (**) (**)  XIO  [1,0] (*Cooking*) (**)  XIC  [2,0] (*Cooling*) (**)  XIO  [3,0] (*DI_Conveyor_Start_PE*) (**)  OTE  [4,0] (*_IO_EM_DO_11*) (*DO_Conveyor_Rev*)
+EOR [5,0]
+
+
+(*Simulate oven PE on*)
+
+SOR  [0,15] (**) (**)  XIC  [1,0] (*_IO_EM_DO_10*) (*DO_Conveyor_Fwd*)  FB  [2,0] (*TON*) (*TON_4*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#2s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*DI_Conveyor_Oven_PE*) (**)
+EOR [6,0]
+
+
+(*Simulate oven PE off*)
+
+SOR  [0,18] (**) (**)  XIC  [1,0] (*_IO_EM_DO_11*) (*DO_Conveyor_Rev*)  OTR  [2,0] (*DI_Conveyor_Oven_PE*) (**)
+EOR [3,0]
+
+
+(*Simulate start PE on*)
+
+SOR  [0,20] (**) (**)  XIC  [1,0] (*_IO_EM_DO_11*) (*DO_Conveyor_Rev*)  FB  [2,0] (*TON*) (*TON_5*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#2s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*DI_Conveyor_Start_PE*) (**)
+EOR [6,0]
+
+
+(*Simulate start PE off*)
+
+SOR  [0,23] (**) (**)  XIC  [1,0] (*_IO_EM_DO_10*) (*DO_Conveyor_Fwd*)  OTR  [2,0] (*DI_Conveyor_Start_PE*) (**)
+EOR [3,0]
+EOF
+#end_info
+END_PROGRAM

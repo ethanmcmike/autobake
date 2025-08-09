@@ -52,6 +52,16 @@
       <SubRoutings />
     </ProgramItem>
     <ProgramItem>
+      <ProgramName>Program1_New_8</ProgramName>
+      <RoutingName>Oven</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
+      <ProgramName>Program1_New_9</ProgramName>
+      <RoutingName>Presenting_Window</RoutingName>
+      <SubRoutings />
+    </ProgramItem>
+    <ProgramItem>
       <ProgramName>Program1_New_4</ProgramName>
       <RoutingName>Indicators</RoutingName>
       <SubRoutings />

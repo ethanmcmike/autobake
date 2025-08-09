@@ -95,25 +95,49 @@ SOR  [0,34] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN
 EOR [8,0]
 
 
-(*Clean bowl*)
+(*Roll into balls on tray*)
 
-SOR  [0,38] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_Clean*) (**) ; (*o1:*)(**) (**) )  
- BST  OTE  [5,0] (*Clean_Bowl*) (**)
-   NXB  XIC  [5,1] (*Bowl_Clean*) (**)  OTS  [6,1] (*Next_Step*) (**)
+SOR  [0,38] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_Roll*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTE  [5,0] (*Roll*) (**)
+   NXB  XIC  [5,1] (*Rolled*) (**)  OTS  [6,1] (*Next_Step*) (**)
  BND
 
 EOR [7,0]
 
 
-(*End of process*)
+(*Bake, clean*)
 
-SOR  [0,42] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*>=*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_End*) (**) ; (*o1:*)(**) (**) )  FB  [5,0] (*1 gain*) (*12*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  OTR  [8,0] (*Running*) (**)
-EOR [9,0]
+SOR  [0,42] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_Bake*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTE  [5,0] (*Bake*) (**)
+   NXB  
+ BST  OTE  [5,1] (*Clean_Bowl*) (**)
+   NXB  XIC  [5,2] (*Baking_Complete*) (**)  OTS  [6,2] (*Next_Step*) (**)
+ BND
+
+ BND
+
+EOR [7,0]
+
+
+(*Present*)
+
+SOR  [0,46] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_Present*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTE  [5,0] (*Present*) (**)
+   NXB  XIC  [5,1] (*Presenting_Complete*) (**)  OTS  [6,1] (*Next_Step*) (**)
+ BND
+
+EOR [7,0]
+
+
+(*End process once bowl is clean*)
+
+SOR  [0,50] (**) (**)  XIC  [1,0] (*Running*) (**)  FB  [2,0] (*>=*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Process_Index*) (**)  , (*i2:*)(*IDX_End*) (**) ; (*o1:*)(**) (**) )  XIC  [5,0] (*Bowl_Clean*) (**)  FB  [6,0] (*1 gain*) (*12*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  OTR  [9,0] (*Running*) (**)
+EOR [10,0]
 
 
 (*Reset*)
 
-SOR  [0,46] (**) (**)  XIC  [1,0] (*_IO_EM_DI_27*) (*DI_Reset_PB*)  FB  [2,0] (*1 gain*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  OTR  [8,0] (*Running*) (**)
+SOR  [0,54] (**) (**)  XIC  [1,0] (*_IO_EM_DI_27*) (*DI_Reset_PB*)  FB  [2,0] (*1 gain*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Bowl_Weight*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  FB  [5,0] (*1 gain*) (*14*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  OTR  [8,0] (*Running*) (**)
 EOR [9,0]
 EOF
 #end_info

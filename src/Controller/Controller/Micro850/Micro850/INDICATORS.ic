@@ -1,7 +1,0 @@
-_STEP 2 0 2
-_IO_EM_DO_17 := READY 
-_STEP 2 0 4
-_IO_EM_DO_18 := WARN 
-_STEP 2 0 6
-_IO_EM_DO_19 := ERROR 
-__LG0000 : 

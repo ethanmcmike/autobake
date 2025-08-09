@@ -3,129 +3,141 @@
 (****** ST *********************************************)
 
 (*************** Rung **********************************)
-(*Initialize bowl weight*)
+(*Move tray into oven on conveyor*)
 __STEPPRAGMA
 0,1
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB1 := __SYSVA_FIRST_SCAN ;
-IF __EDTB1 THEN
-DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
-END_IF ;
-__MO_1GAIN_1 := __EDTB1 ;
+_IO_EM_DO_10 := BAKE AND NOT(COOKING) AND NOT(COOLING) AND NOT(BAKING_COMPLETE) AND NOT(DI_CONVEYOR_OVEN_PE) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0001 ;
 
 
 (*************** Rung **********************************)
-(*Tare - store bowl weight measurement*)
+(*Cook*)
 __STEPPRAGMA
-0,4
+0,3
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-__EDTB2 := TARE ;
-IF __EDTB2 THEN
-TARE_WEIGHT := (  DI_BOWL_WEIGHT) ;
-END_IF ;
-__MO_1GAIN_2 := __EDTB2 ;
-__EDTB3 := __EDTB2 ;
-IF __EDTB3 THEN
-RELATIVE_WEIGHT := (DI_BOWL_WEIGHT - TARE_WEIGHT) ;
-END_IF ;
-__MO_MINUS_1 := __EDTB3 ;
-__EDTB4 := __EDTB3 ;
-IF __EDTB4 THEN
-(*Reset coil*)
-TARE := FALSE ;
-END_IF ;
+__EDTB1 := BAKE AND DI_CONVEYOR_OVEN_PE AND NOT(COOKING) AND NOT(COOLING) AND NOT(BAKING_COMPLETE) ;
+__EDTB2 := COOKING ;
+__EDTB3 := (__EDTB1 OR __EDTB2) AND NOT(COOLING) ;
+COOKING := __EDTB3 ;
+_IO_EM_DO_12 := __EDTB3 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0002 ;
 
 
 (*************** Rung **********************************)
-(*Mix output*)
+(*Cool*)
 __STEPPRAGMA
-0,8
+0,6
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_02 := MIX ;
+(* FB call: TON *)
+TON_2(COOKING, RECIPE_COOK_TIME) ;
+__EDTB4 := TON_2.Q ;
+__EDTB5 := COOLING ;
+COOLING := (__EDTB4 OR __EDTB5) AND NOT(BAKING_COMPLETE) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0003 ;
 
 
 (*************** Rung **********************************)
-(*Mix timer*)
+(*End of cooling*)
 __STEPPRAGMA
 0,10
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_4(MIX, MIX_TIME) ;
-MIX_COMPLETE := TON_4.Q ;
+TON_1(COOLING, RECIPE_COOL_TIME) ;
+BAKING_COMPLETE := TON_1.Q ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0004 ;
 
 
 (*************** Rung **********************************)
-(*Roll dough balls*)
+(*Move tray out of oven on conveyor*)
 __STEPPRAGMA
 0,13
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_3(ROLL, T#5S) ;
-ROLLED := TON_3.Q ;
+_IO_EM_DO_11 := NOT(COOKING) AND COOLING AND NOT(DI_CONVEYOR_START_PE) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0005 ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl*)
+(*Simulate oven PE on*)
 __STEPPRAGMA
-0,16
+0,15
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_09 := CLEAN_BOWL ;
+(* FB call: TON *)
+TON_4(_IO_EM_DO_10, T#2S) ;
+__EDTB6 := TON_4.Q ;
+IF __EDTB6 THEN
+(*Set coil*)
+DI_CONVEYOR_OVEN_PE := TRUE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
 
 
 (*************** Rung **********************************)
-(*Clean bowl for 5s*)
+(*Simulate oven PE off*)
 __STEPPRAGMA
 0,18
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-(* FB call: TON *)
-TON_1(CLEAN_BOWL, C_CLEAN_BOWL_TIME) ;
-BOWL_CLEAN := TON_1.Q ;
+__EDTB7 := _IO_EM_DO_11 ;
+IF __EDTB7 THEN
+(*Reset coil*)
+DI_CONVEYOR_OVEN_PE := FALSE ;
+END_IF ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;
 
 
 (*************** Rung **********************************)
-(*Simulate emptying bowl - set weight to bowl weight after 1s*)
+(*Simulate start PE on*)
 __STEPPRAGMA
-0,21
+0,20
 __ENDSTEPPRAGMA
 (*Label :*)(**)
 (* FB call: TON *)
-TON_2(_IO_EM_DO_09, T#1S) ;
-__EDTB5 := TON_2.Q ;
-IF __EDTB5 THEN
-DI_BOWL_WEIGHT := (  C_BOWL_WEIGHT) ;
+TON_5(_IO_EM_DO_11, T#2S) ;
+__EDTB8 := TON_5.Q ;
+IF __EDTB8 THEN
+(*Set coil*)
+DI_CONVEYOR_START_PE := TRUE ;
 END_IF ;
-__MO_1GAIN_3 := __EDTB5 ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Simulate start PE off*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB9 := _IO_EM_DO_10 ;
+IF __EDTB9 THEN
+(*Reset coil*)
+DI_CONVEYOR_START_PE := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
 
 
 (*************** Code for the end of File **************)
@@ -139,4 +151,8 @@ __GL __LG0000 ;
 (* __EDTB3 *)
 (* __EDTB4 *)
 (* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
 
