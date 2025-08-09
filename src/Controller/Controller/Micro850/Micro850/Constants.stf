@@ -12,9 +12,9 @@ IDX_Sugar := 2;
 IDX_Mix_1 := 3;
 IDX_Eggs_Vanilla := 4;
 IDX_Mix_2 := 5;
-IDX_Flour := 11;
-IDX_Clean := 6;
-IDX_End := 7;
+IDX_Flour := 6;
+IDX_Clean := 7;
+IDX_End := 8;
 
 //Stock values
 C_Butter_Max := 8;
@@ -22,5 +22,7 @@ C_Eggs_Max := 12;
 C_Sugar_Max := 2000.0;	//g
 C_Sugar_Low := 500.0;	//g
 C_Sugar_Empty := 200.0;	//g
-C_Flour_Max := 5000.0;	//gRecipe_Mix_2
+C_Flour_Max := 5000.0;	//g
+C_Flour_Low := 1000.0;	//g
+C_Flour_Empty := 500.0;	//g
 END_PROGRAM

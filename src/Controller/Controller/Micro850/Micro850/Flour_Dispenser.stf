@@ -3,16 +3,70 @@ PROGRAM Flour_Dispenser
 BOF
 
 
-(*Dispense flour until weight reached*)
+(**)
 
-SOR  [0,1] (**) (**)  XIC  [1,0] (*_IO_EM_DO_07*) (**)  FB  [2,0] (*>=*) (*9*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Flour_Weight*) (**)  , (*i2:*)(*Flour_Needed*) (**) ; (*o1:*)(**) (**) )  OTR  [5,0] (*Next_Step*) (**)
+SOR  [0,1] (**) (**)  XIC  [1,0] (*__SYSVA_FIRST_SCAN*) (**)  FB  [2,0] (*1 gain*) (*4*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Flour_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Flour*) (**) )
+EOR [5,0]
+
+
+(*Initialize dispense sugar*)
+
+SOR  [0,4] (**) (**)  XIP  [1,0] (*Dispense_Flour*) (**)  OTS  [2,0] (*Tare*) (**)
+EOR [3,0]
+
+
+(*Wait for taring to dispense*)
+
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Flour*) (**)  XIO  [2,0] (*Tare*) (**)  OTE  [3,0] (*_IO_EM_DO_05*) (*DO_Flour_Dispenser*)
+EOR [4,0]
+
+
+(*Simulate dispensing flour at 200g/s = 50g/250ms, pulse high to low*)
+
+SOR  [0,8] (**) (**)  XIC  [1,0] (*_IO_EM_DO_05*) (*DO_Flour_Dispenser*)  XIC  [2,0] (*Flour_Pulse_State*) (**)  FB  [3,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [6,0] (*-*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Flour*) (**)  , (*i2:*)(*50.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Flour*) (**) )  FB  [9,0] (*+*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*50.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )  OTR  [12,0] (*Flour_Pulse_State*) (**)
+EOR [13,0]
+
+
+(*Flour pulse low to high*)
+
+SOR  [0,12] (**) (**)  XIO  [1,0] (*Flour_Pulse_State*) (**)  FB  [2,0] (*TON*) (*TON_3*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#125ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  OTS  [5,0] (*Flour_Pulse_State*) (**)
 EOR [6,0]
 
 
-(*Simulate dispensing flour*)
+(*Detect flour dispensed by weight*)
 
-SOR  [0,5] (**) (**)  XIC  [1,0] (*_IO_EM_DO_07*) (**)  FB  [2,0] (*TON*) (*TON_2*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#500ms*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [5,0] (*+*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*DI_Bowl_Weight*) (**)  , (*i2:*)(*0.1*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*DI_Bowl_Weight*) (**) )
-EOR [8,0]
+SOR  [0,15] (**) (**)  XIC  [1,0] (*Dispense_Flour*) (**)  XIO  [2,0] (*Tare*) (**)  FB  [3,0] (*>=*) (*15*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Relative_Weight*) (**)  , (*i2:*)(*Recipe_Flour*) (**) ; (*o1:*)(**) (**) )  OTE  [6,0] (*Flour_Dispensed*) (**)
+EOR [7,0]
+
+
+(*Simulate low level photoelectric sensor*)
+
+SOR  [0,19] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Flour*) (**)  , (*i2:*)(*C_Flour_Low*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Flour_Low_PE*) (**)
+EOR [5,0]
+
+
+(*Simulate empty level photoelectric sensor*)
+
+SOR  [0,23] (**) (**)  FB  [1,0] (*<=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Stock_Flour*) (**)  , (*i2:*)(*C_Flour_Empty*) (**) ; (*o1:*)(**) (**) )  OTE  [4,0] (*DI_Flour_Empty_PE*) (**)
+EOR [5,0]
+
+
+(*Low level warning*)
+
+SOR  [0,27] (**) (**)  XIC  [1,0] (*DI_Flour_Low_PE*) (**)  OTE  [2,0] (*Warn_Flour_Low*) (**)
+EOR [3,0]
+
+
+(*Empty error*)
+
+SOR  [0,29] (**) (**)  XIC  [1,0] (*DI_Flour_Empty_PE*) (**)  OTE  [2,0] (*Error_Flour_Empty*) (**)
+EOR [3,0]
+
+
+(*Restock to max*)
+
+SOR  [0,31] (**) (**)  XIC  [1,0] (*_IO_EM_DI_02*) (*DI_Restocked*)  FB  [2,0] (*1 gain*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*C_Flour_Max*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Stock_Flour*) (**) )
+EOR [5,0]
 EOF
 #end_info
 #info= ID_MAX
