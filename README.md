@@ -10,7 +10,7 @@ Hardware:
  - Allen Bradley Micro800 Simulator
 
 # Documentation
-View the ladder logic and other programs in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
+View the ladder logic programs and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
 
 # I/O
 Input Signals:
