@@ -15,6 +15,13 @@ View the ladder logic and variables in the [documentation](https://github.com/et
 
 <img width="1265" height="152" alt="image" src="https://github.com/user-attachments/assets/dbfe6030-1a1c-462a-a6f9-6d827801caee" />
 
+# HMI
+The interface is simple yet functional. The user can start a process, view the active components, reset the stock values, and modify the recipe.
+
+<img width="402" height="432" alt="image" src="https://github.com/user-attachments/assets/09a8c74e-1af5-4fb8-abbd-fa6ac3ecf66a" />
+
+<img width="402" height="432" alt="image" src="https://github.com/user-attachments/assets/db807d22-a612-4f0c-b0c8-f02c56b80053" />
+
 # I/O
 Input Signals:
  - Push buttons
