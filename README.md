@@ -4,15 +4,23 @@ This is a PLC project with multiple ladder logic programs that include sequences
 The system is an imaginary cookie vending machine that automatically produces cookies from scratch when the user presses a button. All the ingredients are assumed to be stored properly at an appropriate temperature and can be dispensed with machines into a large mixing bowl. The mechanical systems and actuators are not simulated and are assumed to function properly. This project is only modelling the control system.
 
 Software:
- - Connected Components Workbench (Allen Bradley)
+ - Connected Components Workbench
+ - FactoryTalk Optix Studio
 
 Hardware:
- - Allen Bradley Micro800 Simulator
+ - Micro800 Simulator
 
 # Documentation
 View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
 
 <img width="1265" height="152" alt="image" src="https://github.com/user-attachments/assets/dbfe6030-1a1c-462a-a6f9-6d827801caee" />
+
+# HMI
+The interface is simple yet functional. The user can start a process, view the active components, reset the stock values, and modify the recipe.
+
+<img width="402" height="432" alt="image" src="https://github.com/user-attachments/assets/09a8c74e-1af5-4fb8-abbd-fa6ac3ecf66a" />
+
+<img width="402" height="432" alt="image" src="https://github.com/user-attachments/assets/db807d22-a612-4f0c-b0c8-f02c56b80053" />
 
 # I/O
 Input Signals:
