@@ -17,8 +17,8 @@ EOR [9,0]
 
 (*Mix output*)
 
-SOR  [0,8] (**) (**)  XIC  [1,0] (*Mix*) (**)  OTE  [2,0] (*_IO_EM_DO_02*) (*DO_Mixer*)
-EOR [3,0]
+SOR  [0,8] (**) (**)  XIC  [1,0] (*Mix*) (**)  XIO  [2,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [3,0] (*_IO_EM_DO_02*) (*DO_Mixer*)
+EOR [4,0]
 
 
 (*Mix timer*)
@@ -35,14 +35,14 @@ EOR [6,0]
 
 (*Send signal to ball roller*)
 
-SOR  [0,16] (**) (**)  XIC  [1,0] (*Roll*) (**)  OTE  [2,0] (*_IO_EM_DO_08*) (*DO_Ball_Roller*)
-EOR [3,0]
+SOR  [0,16] (**) (**)  XIC  [1,0] (*Roll*) (**)  XIO  [2,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [3,0] (*_IO_EM_DO_08*) (*DO_Ball_Roller*)
+EOR [4,0]
 
 
 (*Clean bowl*)
 
-SOR  [0,18] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  OTE  [2,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)
-EOR [3,0]
+SOR  [0,18] (**) (**)  XIC  [1,0] (*Clean_Bowl*) (**)  XIO  [2,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [3,0] (*_IO_EM_DO_09*) (*DO_Bowl_Cleaner*)
+EOR [4,0]
 
 
 (*Clean bowl for 5s*)

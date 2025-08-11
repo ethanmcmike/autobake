@@ -5,12 +5,12 @@ BOF
 
 (*Start new process*)
 
-SOR  [0,1] (**) (**)  XIP  [1,0] (*_IO_EM_DI_00*) (*DI_Start_PB*)  XIO  [2,0] (*Running*) (**)  XIO  [3,0] (*Error*) (**)  FB  [4,0] (*1 gain*) (*13*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  
- BST  OTS  [7,0] (*Running*) (**)
-   NXB  OTS  [7,1] (*Next_Step*) (**)
+SOR  [0,1] (**) (**)  XIP  [1,0] (*_IO_EM_DI_00*) (*DI_Start_PB*)  XIO  [2,0] (*Running*) (**)  XIO  [3,0] (*Error*) (**)  XIO  [4,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  FB  [5,0] (*1 gain*) (*13*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*Process_Index*) (**) )  
+ BST  OTS  [8,0] (*Running*) (**)
+   NXB  OTS  [8,1] (*Next_Step*) (**)
  BND
 
-EOR [8,0]
+EOR [9,0]
 
 
 (*Increment process index*)

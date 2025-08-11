@@ -17,8 +17,8 @@ EOR [3,0]
 
 (*Wait for taring to dispense*)
 
-SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Flour*) (**)  XIO  [2,0] (*Tare*) (**)  OTE  [3,0] (*_IO_EM_DO_05*) (*DO_Flour_Dispenser*)
-EOR [4,0]
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Flour*) (**)  XIO  [2,0] (*Tare*) (**)  XIO  [3,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [4,0] (*_IO_EM_DO_05*) (*DO_Flour_Dispenser*)
+EOR [5,0]
 
 
 (*Simulate dispensing flour at 200g/s = 50g/250ms, pulse high to low*)
