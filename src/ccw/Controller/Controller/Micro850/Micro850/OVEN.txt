@@ -1,0 +1,158 @@
+(****** QuickLD compiler *******************************)
+(****** Copyright Rockwell Automation Canada, Ltd ******)
+(****** ST *********************************************)
+
+(*************** Rung **********************************)
+(*Move tray into oven on conveyor*)
+__STEPPRAGMA
+0,1
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_10 := BAKE AND NOT(COOKING) AND NOT(COOLING) AND NOT(BAKING_COMPLETE) AND NOT(DI_CONVEYOR_OVEN_PE) AND NOT(_IO_EM_DI_01) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Cook*)
+__STEPPRAGMA
+0,3
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB1 := BAKE AND DI_CONVEYOR_OVEN_PE AND NOT(COOKING) AND NOT(COOLING) AND NOT(BAKING_COMPLETE) ;
+__EDTB2 := COOKING ;
+__EDTB3 := (__EDTB1 OR __EDTB2) AND NOT(COOLING) ;
+COOKING := __EDTB3 ;
+_IO_EM_DO_12 := __EDTB3 AND NOT(_IO_EM_DI_01) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
+
+
+(*************** Rung **********************************)
+(*Cool*)
+__STEPPRAGMA
+0,6
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(COOKING, RECIPE_COOK_TIME) ;
+__EDTB4 := TON_2.Q ;
+__EDTB5 := COOLING ;
+COOLING := (__EDTB4 OR __EDTB5) AND NOT(BAKING_COMPLETE) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*End of cooling*)
+__STEPPRAGMA
+0,10
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_1(COOLING, RECIPE_COOL_TIME) ;
+BAKING_COMPLETE := TON_1.Q ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+
+
+(*************** Rung **********************************)
+(*Move tray out of oven on conveyor*)
+__STEPPRAGMA
+0,13
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_11 := NOT(COOKING) AND COOLING AND NOT(DI_CONVEYOR_START_PE) AND NOT(_IO_EM_DI_01) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
+
+
+(*************** Rung **********************************)
+(*Simulate oven PE on*)
+__STEPPRAGMA
+0,15
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_4(_IO_EM_DO_10, T#2S) ;
+__EDTB6 := TON_4.Q ;
+IF __EDTB6 THEN
+(*Set coil*)
+DI_CONVEYOR_OVEN_PE := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+
+
+(*************** Rung **********************************)
+(*Simulate oven PE off*)
+__STEPPRAGMA
+0,18
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB7 := _IO_EM_DO_11 ;
+IF __EDTB7 THEN
+(*Reset coil*)
+DI_CONVEYOR_OVEN_PE := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+
+
+(*************** Rung **********************************)
+(*Simulate start PE on*)
+__STEPPRAGMA
+0,20
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_5(_IO_EM_DO_11, T#2S) ;
+__EDTB8 := TON_5.Q ;
+IF __EDTB8 THEN
+(*Set coil*)
+DI_CONVEYOR_START_PE := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Simulate start PE off*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB9 := _IO_EM_DO_10 ;
+IF __EDTB9 THEN
+(*Reset coil*)
+DI_CONVEYOR_START_PE := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
+
+
+(*************** Code for the end of File **************)
+__GL __LG0000 ;
+
+
+
+(*************** Local Symbols table *******************)
+(* __EDTB1 *)
+(* __EDTB2 *)
+(* __EDTB3 *)
+(* __EDTB4 *)
+(* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
+

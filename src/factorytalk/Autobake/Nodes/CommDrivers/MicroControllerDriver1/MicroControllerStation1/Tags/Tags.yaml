@@ -1,0 +1,236 @@
+Name: Tags
+Type: FolderType
+Children:
+- Name: Bake
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Bake"
+- Name: Clean_Bowl
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Clean_Bowl"
+- Name: Dispense_Butter
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Butter"
+- Name: Dispense_Eggs
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Eggs"
+- Name: Dispense_Flour
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Flour"
+- Name: Dispense_Salt
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Salt"
+- Name: Dispense_Soda
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Soda"
+- Name: Dispense_Sugar
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Sugar"
+- Name: Dispense_Vanilla
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Dispense_Vanilla"
+- Name: Error
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Error"
+- Name: IDX_End
+  Type: MicroControllerTag
+  DataType: Int16
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "IDX_End"
+- Name: Mix
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Mix"
+- Name: Present
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Present"
+- Name: Process_Index
+  Type: MicroControllerTag
+  DataType: Int16
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Process_Index"
+- Name: Ready
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Ready"
+- Name: Recipe_Cook_Time
+  Type: MicroControllerTag
+  DataType: UInt32
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Cook_Time"
+- Name: Recipe_Cool_Time
+  Type: MicroControllerTag
+  DataType: UInt32
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Cool_Time"
+- Name: Recipe_Eggs
+  Type: MicroControllerTag
+  DataType: Int16
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Eggs"
+- Name: Recipe_Flour
+  Type: MicroControllerTag
+  DataType: Float
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Flour"
+- Name: Recipe_Sugar
+  Type: MicroControllerTag
+  DataType: Float
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Sugar"
+- Name: Recipe_Vanilla
+  Type: MicroControllerTag
+  DataType: Int16
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Recipe_Vanilla"
+- Name: Roll
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Roll"
+- Name: Running
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Running"
+- Name: Start_PB
+  Id: g=6a8cbd360b0e94bd5e48ebfb5a4a2c55
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Start_PB"
+- Name: Warn
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Warn"
+- Name: _IO_EM_DI_00
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "_IO_EM_DI_00"
+- Name: _IO_EM_DI_01
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "_IO_EM_DI_01"
+- Name: _IO_EM_DI_02
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "_IO_EM_DI_02"
+- Name: _IO_EM_DI_03
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "_IO_EM_DI_03"

@@ -1,0 +1,217 @@
+(****** QuickLD compiler *******************************)
+(****** Copyright Rockwell Automation Canada, Ltd ******)
+(****** ST *********************************************)
+
+(*************** Rung **********************************)
+(**)
+__STEPPRAGMA
+0,1
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB1 := __SYSVA_FIRST_SCAN ;
+IF __EDTB1 THEN
+STOCK_SUGAR := (  C_SUGAR_MAX) ;
+END_IF ;
+__MO_1GAIN_1 := __EDTB1 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0001 ;
+
+
+(*************** Rung **********************************)
+(*Initialize dispense sugar*)
+__STEPPRAGMA
+0,4
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__1__DISPENSE_SUGAR *)
+__EDTB2 := (DISPENSE_SUGAR AND NOT(__MEMO__1__DISPENSE_SUGAR)) ;
+IF __EDTB2 THEN
+(*Set coil*)
+TARE := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0002 ;
+__MEMO__1__DISPENSE_SUGAR := DISPENSE_SUGAR ; (*Pulse detection on : DISPENSE_SUGAR with __MEMO__1__DISPENSE_SUGAR *)
+
+
+(*************** Rung **********************************)
+(*Wait for taring to dispense sugar*)
+__STEPPRAGMA
+0,6
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+_IO_EM_DO_01 := DISPENSE_SUGAR AND NOT(TARE) AND NOT(_IO_EM_DI_01) ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0003 ;
+
+
+(*************** Rung **********************************)
+(*Simulate dispensing sugar at 100g/s = 25g/250ms, pulse high to low*)
+__STEPPRAGMA
+0,8
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_2(_IO_EM_DO_01 AND SUGAR_PULSE_STATE, T#125MS) ;
+__EDTB3 := TON_2.Q ;
+IF __EDTB3 THEN
+STOCK_SUGAR := (STOCK_SUGAR - 25.0) ;
+END_IF ;
+__MO_MINUS_1 := __EDTB3 ;
+__EDTB4 := __EDTB3 ;
+IF __EDTB4 THEN
+DI_BOWL_WEIGHT := (DI_BOWL_WEIGHT + 25.0) ;
+END_IF ;
+__MO_PLUS_1 := __EDTB4 ;
+__EDTB5 := __EDTB4 ;
+IF __EDTB5 THEN
+(*Reset coil*)
+SUGAR_PULSE_STATE := FALSE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0004 ;
+
+
+(*************** Rung **********************************)
+(*Sugar pulse low to high*)
+__STEPPRAGMA
+0,12
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+(* FB call: TON *)
+TON_3(NOT(SUGAR_PULSE_STATE), T#125MS) ;
+__EDTB6 := TON_3.Q ;
+IF __EDTB6 THEN
+(*Set coil*)
+SUGAR_PULSE_STATE := TRUE ;
+END_IF ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0005 ;
+
+
+(*************** Rung **********************************)
+(*Detect sugar dispensed by weight*)
+__STEPPRAGMA
+0,15
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB8 := DISPENSE_SUGAR AND NOT(TARE) ;
+IF __EDTB8 THEN
+(* Operator output on : >= with __EDTB7 *)
+__EDTB7 := (RELATIVE_WEIGHT >= RECIPE_SUGAR) ;
+ELSE
+__EDTB7 := FALSE ;
+END_IF ;
+__MO_GREATEQUAL_1 := __EDTB7 ;
+SUGAR_DISPENSED := __EDTB7 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0006 ;
+
+
+(*************** Rung **********************************)
+(*Simulate low level photoelectric sensor*)
+__STEPPRAGMA
+0,19
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB10 := TRUE ;
+IF __EDTB10 THEN
+(* Operator output on : <= with __EDTB9 *)
+__EDTB9 := (STOCK_SUGAR <= C_SUGAR_LOW) ;
+ELSE
+__EDTB9 := FALSE ;
+END_IF ;
+__MO_LESSEQUAL_1 := __EDTB9 ;
+DI_SUGAR_LOW_PE := __EDTB9 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0007 ;
+
+
+(*************** Rung **********************************)
+(*Simulate empty level photoelectric sensor*)
+__STEPPRAGMA
+0,23
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB12 := TRUE ;
+IF __EDTB12 THEN
+(* Operator output on : <= with __EDTB11 *)
+__EDTB11 := (STOCK_SUGAR <= C_SUGAR_EMPTY) ;
+ELSE
+__EDTB11 := FALSE ;
+END_IF ;
+__MO_LESSEQUAL_2 := __EDTB11 ;
+DI_SUGAR_EMPTY_PE := __EDTB11 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0008 ;
+
+
+(*************** Rung **********************************)
+(*Low level warning*)
+__STEPPRAGMA
+0,27
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+WARN_SUGAR_LOW := DI_SUGAR_LOW_PE ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG0009 ;
+
+
+(*************** Rung **********************************)
+(*Empty error*)
+__STEPPRAGMA
+0,29
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+ERROR_SUGAR_EMPTY := DI_SUGAR_EMPTY_PE ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000A ;
+
+
+(*************** Rung **********************************)
+(*Restock to max*)
+__STEPPRAGMA
+0,31
+__ENDSTEPPRAGMA
+(*Label :*)(**)
+__EDTB13 := _IO_EM_DI_02 ;
+IF __EDTB13 THEN
+STOCK_SUGAR := (  C_SUGAR_MAX) ;
+END_IF ;
+__MO_1GAIN_2 := __EDTB13 ;
+
+(*************** Code for the end of Rung **************)
+__GL __LG000B ;
+
+
+(*************** Code for the end of File **************)
+__GL __LG0000 ;
+
+
+
+(*************** Local Symbols table *******************)
+(* __EDTB1 *)
+(* __MEMO__1__DISPENSE_SUGAR *)
+(* __EDTB2 *)
+(* __EDTB3 *)
+(* __EDTB4 *)
+(* __EDTB5 *)
+(* __EDTB6 *)
+(* __EDTB7 *)
+(* __EDTB8 *)
+(* __EDTB9 *)
+(* __EDTB10 *)
+(* __EDTB11 *)
+(* __EDTB12 *)
+(* __EDTB13 *)
+
