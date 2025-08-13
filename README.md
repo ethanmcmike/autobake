@@ -11,7 +11,7 @@ Hardware:
  - Micro850 Simulator
 
 # Documentation
-View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/Micro850.pdf).
+View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/).
 
 <img width="1265" height="152" alt="image" src="https://github.com/user-attachments/assets/dbfe6030-1a1c-462a-a6f9-6d827801caee" />
 
