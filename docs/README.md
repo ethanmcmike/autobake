@@ -1,3 +1,3 @@
-Ladder Logic
-Actuators
-Sensors
+ - [Ladder Logic]()
+ - [Sensors](https://github.com/ethanmcmike/autobake/blob/develop/docs/sensors.md)
+ - [Actuators]()
