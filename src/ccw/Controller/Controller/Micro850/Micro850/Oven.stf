@@ -5,7 +5,7 @@ BOF
 
 (*Move tray into oven on conveyor*)
 
-SOR  [0,1] (**) (**)  XIC  [1,0] (*Bake*) (**)  XIO  [2,0] (*Cooking*) (**)  XIO  [3,0] (*Cooling*) (**)  XIO  [4,0] (*Baking_Complete*) (**)  XIO  [5,0] (*DI_Conveyor_Oven_PE*) (**)  XIO  [6,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [7,0] (*_IO_EM_DO_10*) (*DO_Conveyor_Fwd*)
+SOR  [0,1] (**) (**)  XIC  [1,0] (*Bake*) (**)  XIO  [2,0] (*Cooking*) (**)  XIO  [3,0] (*Cooling*) (**)  XIO  [4,0] (*Baking_Complete*) (**)  XIO  [5,0] (*DI_Conveyor_Oven_PE*) (**)  XIO  [6,0] (*Stop_PB*) (**)  OTE  [7,0] (*_IO_EM_DO_10*) (*DO_Conveyor_Fwd*)
 EOR [8,0]
 
 
@@ -17,7 +17,7 @@ SOR  [0,3] (**) (**)
  BND
   XIO  [6,0] (*Cooling*) (**)  
  BST  OTE  [7,0] (*Cooking*) (**)
-   NXB  XIO  [7,1] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [8,1] (*_IO_EM_DO_12*) (*DO_Oven*)
+   NXB  XIO  [7,1] (*Stop_PB*) (**)  OTE  [8,1] (*_IO_EM_DO_12*) (*DO_Oven*)
  BND
 
 EOR [9,0]
@@ -41,7 +41,7 @@ EOR [6,0]
 
 (*Move tray out of oven on conveyor*)
 
-SOR  [0,13] (**) (**)  XIO  [1,0] (*Cooking*) (**)  XIC  [2,0] (*Cooling*) (**)  XIO  [3,0] (*DI_Conveyor_Start_PE*) (**)  XIO  [4,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [5,0] (*_IO_EM_DO_11*) (*DO_Conveyor_Rev*)
+SOR  [0,13] (**) (**)  XIO  [1,0] (*Cooking*) (**)  XIC  [2,0] (*Cooling*) (**)  XIO  [3,0] (*DI_Conveyor_Start_PE*) (**)  XIO  [4,0] (*Stop_PB*) (**)  OTE  [5,0] (*_IO_EM_DO_11*) (*DO_Conveyor_Rev*)
 EOR [6,0]
 
 

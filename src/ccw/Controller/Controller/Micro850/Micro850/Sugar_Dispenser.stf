@@ -17,7 +17,7 @@ EOR [3,0]
 
 (*Wait for taring to dispense sugar*)
 
-SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  XIO  [3,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [4,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)
+SOR  [0,6] (**) (**)  XIC  [1,0] (*Dispense_Sugar*) (**)  XIO  [2,0] (*Tare*) (**)  XIO  [3,0] (*Stop_PB*) (**)  OTE  [4,0] (*_IO_EM_DO_01*) (*DO_Sugar_Dispenser*)
 EOR [5,0]
 
 

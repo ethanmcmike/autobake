@@ -1,0 +1,8 @@
+Controller.Micro850.Micro850.Refrigerator.PID_1
+Controller.Micro850.Micro850._IO_P1_AI_00
+Controller.Micro850.Micro850._IO_P1_AI_01
+Controller.Micro850.Micro850.Refrigerator.SCALER_1
+Controller.Micro850.Micro850.Fridge_Temp
+Controller.Micro850.Micro850.Refrigerator.IPIDCONTROLLER_1
+Controller.Micro850.Micro850.Recipe_Fridge_Temp
+Controller.Micro850.Micro850.Door_Open
