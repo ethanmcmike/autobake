@@ -50,7 +50,7 @@ __STEPPRAGMA
 0,8
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_02 := MIX AND NOT(_IO_EM_DI_01) ;
+_IO_EM_DO_02 := MIX AND NOT(STOP_PB) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0003 ;
@@ -90,7 +90,7 @@ __STEPPRAGMA
 0,16
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_08 := ROLL AND NOT(_IO_EM_DI_01) ;
+_IO_EM_DO_08 := ROLL AND NOT(STOP_PB) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0006 ;
@@ -102,7 +102,7 @@ __STEPPRAGMA
 0,18
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_09 := CLEAN_BOWL AND NOT(_IO_EM_DI_01) ;
+_IO_EM_DO_09 := CLEAN_BOWL AND NOT(STOP_PB) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;

@@ -123,7 +123,7 @@ __STEPPRAGMA
 0,21
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_03 := EGG_PULSE_STATE AND NOT(_IO_EM_DI_01) ;
+_IO_EM_DO_03 := EGG_PULSE_STATE AND NOT(STOP_PB) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0007 ;

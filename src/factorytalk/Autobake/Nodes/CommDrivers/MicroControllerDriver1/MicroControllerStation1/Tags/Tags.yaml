@@ -194,6 +194,15 @@ Children:
     Type: BaseDataVariableType
     DataType: String
     Value: "Start_PB"
+- Name: Stop_PB
+  Id: g=b843d99d4949d63028858796870f9938
+  Type: MicroControllerTag
+  DataType: Boolean
+  Children:
+  - Name: SymbolName
+    Type: BaseDataVariableType
+    DataType: String
+    Value: "Stop_PB"
 - Name: Warn
   Type: MicroControllerTag
   DataType: Boolean

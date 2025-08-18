@@ -2,7 +2,7 @@ PROGRAM Equations
 Relative_Weight := DI_Bowl_Weight - Tare_Weight;
 Error := Error_Butter_Empty OR Error_Sugar_Empty OR Error_Eggs_Empty;
 Warn := Warn_Butter_Low OR Warn_Sugar_Low OR Warn_Eggs_Low;
-Ready := NOT(Running OR ERROR);
+Ready := NOT(Running OR Error OR Stop_PB);
 
 Egg_Dispense_Delay := ANY_TO_TIME(ANY_TO_DINT(Recipe_Eggs) * ANY_TO_DINT(C_Egg_Dispense_Time));
 END_PROGRAM

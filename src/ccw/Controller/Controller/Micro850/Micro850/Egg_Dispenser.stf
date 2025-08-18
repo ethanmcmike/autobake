@@ -41,7 +41,7 @@ EOR [5,0]
 
 (*Send pulse to dispenser*)
 
-SOR  [0,21] (**) (**)  XIC  [1,0] (*Egg_Pulse_State*) (**)  XIO  [2,0] (*_IO_EM_DI_01*) (*DI_Stop_PB*)  OTE  [3,0] (*_IO_EM_DO_03*) (*DO_Egg_Dispenser*)
+SOR  [0,21] (**) (**)  XIC  [1,0] (*Egg_Pulse_State*) (**)  XIO  [2,0] (*Stop_PB*) (**)  OTE  [3,0] (*_IO_EM_DO_03*) (*DO_Egg_Dispenser*)
 EOR [4,0]
 
 

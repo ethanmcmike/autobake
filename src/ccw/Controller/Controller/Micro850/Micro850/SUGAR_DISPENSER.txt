@@ -42,7 +42,7 @@ __STEPPRAGMA
 0,6
 __ENDSTEPPRAGMA
 (*Label :*)(**)
-_IO_EM_DO_01 := DISPENSE_SUGAR AND NOT(TARE) AND NOT(_IO_EM_DI_01) ;
+_IO_EM_DO_01 := DISPENSE_SUGAR AND NOT(TARE) AND NOT(STOP_PB) ;
 
 (*************** Code for the end of Rung **************)
 __GL __LG0003 ;

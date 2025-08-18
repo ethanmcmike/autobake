@@ -9,6 +9,9 @@
   <AcfElementGuid Guid="47c9b7c8-5201-4658-8b3b-38a847498011">
     <File>Butter_Dispenser.AcfMlge</File>
   </AcfElementGuid>
+  <AcfElementGuid Guid="5b03fb24-541d-4e59-aa43-f24eaae00872">
+    <File>Refrigerator.AcfMlge</File>
+  </AcfElementGuid>
   <AcfElementGuid Guid="62d77380-a596-41a1-b7c2-95c9ee2c787b">
     <File>Salt_Dispenser.AcfMlge</File>
   </AcfElementGuid>
