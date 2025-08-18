@@ -37,3 +37,5 @@ Fan mass flow rate = 0.6125kg/min
 Heat exchange from fan := (Mass flow rate) * (Heat capacity) * (Temperature difference)
 
 Heat exchange from door := (Mass flow rate) * (Heat capacity) * (Temperature difference)
+
+(Change in temp) = (Change in time) * ((Heat exchange from door) + (Heat exhange from fan) + (Heat exchange from walls)) / (Total heat capacity)
