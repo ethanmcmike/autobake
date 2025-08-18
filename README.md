@@ -1,14 +1,23 @@
 # About
 This is a PLC project with multiple ladder logic programs that include sequences, timers, pulse generators, low-level warnings, and error management.
 
-The system is an imaginary cookie vending machine that automatically produces cookies from scratch when the user presses a button. All the ingredients are assumed to be stored properly at an appropriate temperature and can be dispensed with machines into a large mixing bowl. The mechanical systems and actuators are not simulated and are assumed to function properly. This project is only modelling the control system.
+The system is a cookie vending machine that automatically produces cookies from raw ingredients. The program controls the sequence of dispensing and mixing ingredients based on a user-defined recipe, bakes and presents the cookies, cleans the bowls asyncronously, and presents the cookies. The program also maintains the refrigerator temperature using a feedback loop and a PID controller. The ingredient stock levels are tracked both electronically and using low-level sensors.
+
+Components:
+ - Micro850 (2080-LC50-48QWB-SIM)
+ - Conveyor belt
+ - Servo
+ - Refrigerator
+ - E-stop button
+
+Sensors:
+ - Photoelectric (digital)
+ - Hall-effect (digital)
+ - Temperature (analog current-controlled)
 
 Software:
  - Connected Components Workbench
  - FactoryTalk Optix Studio
-
-Hardware:
- - Micro850 Simulator
 
 # Documentation
 View the ladder logic and variables in the [documentation](https://github.com/ethanmcmike/cookie_vending_machine/blob/main/docs/).
