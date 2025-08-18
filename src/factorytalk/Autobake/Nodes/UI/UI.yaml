@@ -2158,6 +2158,7 @@ Children:
       - Name: Value
         Type: BaseDataVariableType
         DataType: Float
+        Value: 40.0
       - Name: MinValue
         Type: BaseDataVariableType
         DataType: Float
@@ -2258,6 +2259,19 @@ Children:
         DataType: String
         ModellingRule: Optional
         Value: "Default"
+      - Name: Tooltip
+        Type: BaseDataVariableType
+        DataType: Boolean
+        ModellingRule: Optional
+      - Name: LabelVisible
+        Type: BaseDataVariableType
+        DataType: Boolean
+        ModellingRule: Optional
+        Value: true
+      - Name: Editable
+        Type: BaseDataVariableType
+        DataType: Boolean
+        ModellingRule: Optional
     - Name: Label21
       Type: Label
       Children:
