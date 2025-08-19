@@ -32,10 +32,14 @@ Total heat capacity = 4630J/degC
 
 Fan volume flow rate = 0.5m^3/min
 
-Fan mass flow rate = 0.6125kg/min
+Fan mass flow rate = 0.6125kg/min = 0.010208kg/sec
 
 Heat exchange from fan := (Mass flow rate) * (Heat capacity) * (Temperature difference)
+
+Fan constant = (Mass flow rate) * (Heat capacity) = kg/s * J/degC * degC
 
 Heat exchange from door := (Mass flow rate) * (Heat capacity) * (Temperature difference)
 
 (Change in temp) = (Change in time) * ((Heat exchange from door) + (Heat exhange from fan) + (Heat exchange from walls)) / (Total heat capacity)
+
+
